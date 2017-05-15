@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="primary">
+     <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Expense Tracker</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>  
+  <ion-list>
+     <button ion-item *ngFor="let expense of expenses"
+     (click)="onItemClick(expense)">
+       <h2>{{expense.amount | currency: 'USD': true }}</h2>
+       <p> {{expense.date | date}} - {{expense.description}}</p>
+       <ion-note item-right>{{expense.category}}</ion-note>
+     </button>
+  </ion-list>  
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="onAddClick()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+ </ion-fab>
+</ion-content>
