@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+
+import { HomePage } from '../home/home';
+
 
 @Component({
   selector: 'page-login',
@@ -10,8 +13,9 @@ import * as firebase from 'firebase/app';
 
 export class Login { 
 
-  constructor(private navCtrl: NavController
-              ,public afAuth: AngularFireAuth
+  constructor(private navCtrl: NavController,
+              public afAuth: AngularFireAuth,
+              private events: Events 
               ) {
   }
 
@@ -27,7 +31,7 @@ export class Login {
             };
             console.log(user);
             window.localStorage.setItem('user', JSON.stringify(user));    
-            self.navCtrl.pop(); 
+            self.navCtrl.push( HomePage , { user: user } ); 
     }).then(function(response){
        console.log(response);
      });
@@ -56,12 +60,15 @@ export class Login {
    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
    .then(function(response){
      console.log(response);
-           let user = {
+           let userProfile = {
                 username: response.user.email,
-                uid: response.user.uid
+                uid: response.user.uid,
+                photoUrl: response.user.photoUrl,
+                displayName: response.user.displayName
             };
-            window.localStorage.setItem('user', JSON.stringify(user));    
-            self.navCtrl.pop(); 
+            self.events.publish("userProfile:changed",userProfile);
+            window.localStorage.setItem('userProfile', JSON.stringify(userProfile));    
+            self.navCtrl.setRoot( HomePage ); 
     }); 
   }  
 

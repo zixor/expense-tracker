@@ -38,7 +38,7 @@ export class HomePage {
   }
 
   isUserAlreadyLoggedIn(){
-    let user = window.localStorage.getItem('user');
+    let user = window.localStorage.getItem('userProfile');
     return user !== null;
   }
 
