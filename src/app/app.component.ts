@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
 import { UserProfile } from "./user-profile.model";
+import { ListArticle } from "../pages/list-article/list-article";
 
 @Component({
   templateUrl: 'app.html'
@@ -39,7 +40,7 @@ export class MyApp {
     this.pages = [
       { title: 'Tablero',   component: HomePage },
       { title: 'Caja',      component: Login },
-      { title: 'Artículos', component: Detail },
+      { title: 'Artículos', component: ListArticle },
       { title: 'Empleados', component: Login },
       { title: 'Clientes',  component: Login },
       { title: 'Ventas',    component: ListPage },      

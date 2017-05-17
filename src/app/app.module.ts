@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { ExpenseService } from './expense.service';
+import { ArticleService } from './article.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -15,6 +16,8 @@ import { HomePage } from '../pages/home/home';
 import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
+import { ListArticle } from '../pages/list-article/list-article';
+import { ArticlePage } from '../pages/article-page/article-page';
 
 export const firebaseConfig  = {
     apiKey: "AIzaSyCysMWhsNmcuXjwInzIRau887uJ1eGjAm4",
@@ -38,16 +41,21 @@ export const firebaseConfig  = {
     Detail,
     Login,
     ListPage,
+    ListArticle,
+    ArticlePage
   ],    
   entryComponents: [
     MyApp,
     HomePage,
     Detail,
     Login,
-    ListPage
+    ListPage,
+    ListArticle,
+    ArticlePage
   ],
   providers: [    
     ExpenseService,
+    ArticleService,
     StatusBar,SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
     ],

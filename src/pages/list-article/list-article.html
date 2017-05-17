@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="primary">
+     <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lista de Artículos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>  
+  <ion-list>
+     <button ion-item *ngFor="let article of article"
+     (click)="onItemClick(article)">       
+       <h2> {{article.expiration_date | date}} - {{article.name}}</h2>
+       <p>{{article.sale_price | currency: 'USD': true }}</p>
+       <ion-note item-right>{{article.category}}</ion-note>
+     </button>
+  </ion-list>  
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="onAddClick()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+ </ion-fab>
+</ion-content>
