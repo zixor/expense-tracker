@@ -37,10 +37,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home',   component: HomePage },
-      { title: 'List',   component: ListPage },
-      { title: 'Detail', component: Detail },
-      { title: 'Login',  component: Login },
+      { title: 'Tablero',   component: HomePage },
+      { title: 'Caja',      component: Login },
+      { title: 'Artículos', component: Detail },
+      { title: 'Empleados', component: Login },
+      { title: 'Clientes',  component: Login },
+      { title: 'Ventas',    component: ListPage },      
     ];
 
     this.events.subscribe("userProfile:changed", userProfile => {
@@ -64,5 +66,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  closeSession(){
+      window.localStorage.removeItem("userProfile");
+      this.nav.push( HomePage );
   }
 }

@@ -63,7 +63,7 @@ export class Login {
            let userProfile = {
                 username: response.user.email,
                 uid: response.user.uid,
-                photoUrl: response.user.photoUrl,
+                photoUrl: response.user.photoURL,
                 displayName: response.user.displayName
             };
             self.events.publish("userProfile:changed",userProfile);
