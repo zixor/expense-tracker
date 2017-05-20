@@ -4,11 +4,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { Detail } from '../pages/detail/detail';
+//import { ListPage } from '../pages/list/list';
+//import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
 import { UserProfile } from "./user-profile.model";
-import { ListArticle } from "../pages/list-article/list-article";
+//import { ListArticle } from "../pages/list-article/list-article";
 
 @Component({
   templateUrl: 'app.html'
@@ -38,12 +38,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Tablero',   component: HomePage },
-      { title: 'Caja',      component: Login },
-      { title: 'Artículos', component: ListArticle },
+      { title: 'Expenses',   component: HomePage },
+      { title: 'Exit',      component: Login },
+      /*{ title: 'Artículos', component: ListArticle },
       { title: 'Empleados', component: Login },
       { title: 'Clientes',  component: Login },
-      { title: 'Ventas',    component: ListPage },      
+      { title: 'Ventas',    component: ListPage },     */ 
     ];
 
     this.events.subscribe("userProfile:changed", userProfile => {

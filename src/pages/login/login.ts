@@ -28,12 +28,11 @@ export class Login {
                 uid: response.user.uid,
                 photoUrl: response.user.photoUrl,
                 displayName: response.user.displayName
-            };
-            console.log(user);
+            };            
             window.localStorage.setItem('user', JSON.stringify(user));    
             self.navCtrl.push( HomePage , { user: user } ); 
     }).then(function(response){
-       console.log(response);
+       //console.log(response);
      });
   }
 
@@ -46,12 +45,11 @@ export class Login {
                 uid: response.user.uid,
                 photoUrl: response.user.photoUrl,
                 displayName: response.user.displayName
-            };
-            console.log(user);
+            };            
             window.localStorage.setItem('user', JSON.stringify(user));    
             self.navCtrl.pop(); 
     }).then(function(response){
-       console.log(response);
+       //console.log(response);
      });
   }
 
@@ -59,7 +57,7 @@ export class Login {
    let self = this;
    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
    .then(function(response){
-     console.log(response);
+     //console.log(response);
            let userProfile = {
                 username: response.user.email,
                 uid: response.user.uid,

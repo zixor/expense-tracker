@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
-import { Expense } from '../../app/expense.model';
+//import { Expense } from '../../app/expense.model';
 import { ExpenseService } from '../../app/expense.service';
 import { Login } from '../login/login';
+import { FirebaseListObservable  } from 'angularfire2/database';
 
 @Component({
   selector: 'page-home',
@@ -11,7 +12,7 @@ import { Login } from '../login/login';
 })
 export class HomePage {
 
- private expenses: Expense[];
+ private expenses: FirebaseListObservable<any[]>;
 
   constructor(private navCtrl: NavController,
               private expenseService: ExpenseService
@@ -21,15 +22,14 @@ export class HomePage {
     if(!this.isUserAlreadyLoggedIn()) {
             this.navCtrl.push(Login);
       }else{
-            this.expenseService.getExpenses()
-                .then(expenses => this.expenses = expenses );
+            this.expenses =  this.expenseService.getExpenses();
     }
   }
 
   onItemClick(expense){
       console.log(expense);
       this.navCtrl.push(Detail,{
-        expenseId: expense.id
+        expense : expense
       });
   }
 

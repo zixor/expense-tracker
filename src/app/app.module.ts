@@ -9,6 +9,7 @@ import { ArticleService } from './article.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 
 import { MyApp } from './app.component';
@@ -18,6 +19,7 @@ import { Login } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
 import { ListArticle } from '../pages/list-article/list-article';
 import { ArticlePage } from '../pages/article-page/article-page';
+
 
 export const firebaseConfig  = {
     apiKey: "AIzaSyCysMWhsNmcuXjwInzIRau887uJ1eGjAm4",
@@ -31,9 +33,10 @@ export const firebaseConfig  = {
 @NgModule({
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
-    , AngularFireModule.initializeApp(firebaseConfig, 'weonsoft-pos') 
-    , AngularFireAuthModule
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig, 'weonsoft-pos'),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   declarations: [
     MyApp,

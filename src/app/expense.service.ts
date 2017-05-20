@@ -1,41 +1,38 @@
+import { Injectable } from '@angular/core';
+//import { Expense } from './expense.model';
+import { AngularFireDatabase, FirebaseListObservable  } from 'angularfire2/database';
 
-import  uuidV4 from 'uuid/v4';
-import  Dexie from 'dexie';
-import { Expense } from './expense.model';
-
-export class ExpenseService extends Dexie {
-
-    expenses: Dexie.Table<Expense,string>;
+/** 
+ * Warning for the correct using of this service, you must import { Injectable } from '@angular/core';
+ * and use the annotation @Injectable(). Otherwise You Will get the folling exception:
+ * 1. Can't resolve all parameters for ExpenseService: (?).
+ * 
+ * Readme : Any doubt about firebase https://github.com/angular/angularfire2/blob/master/docs/Auth-with-Ionic3-Angular4.md
+ * 
+*/
+@Injectable()
+export class ExpenseService {
 
     categories = ['Food','Travel','Other'];
+    expenses: FirebaseListObservable<any[]>;
 
-    constructor(){
-      //database name
-      super('expense_tracker');
-      this.version(1).stores({
-        //Key value and index fields
-         expenses: 'id,date'
-      });
-    }
+    constructor(private afDB: AngularFireDatabase){
+        this.expenses = this.afDB.list('/expenses');
+    }  
 
-  getExpense(expenseId: string): Dexie.Promise<Expense>{
-    return this.expenses.get(expenseId);
+  updateExpense(expense){    
+   this.expenses.update(expense.$key, expense);
   }
 
-  updateExpense(expense: Expense){    
-    this.expenses.update(expense.id,expense);
+  addExpense(expense){
+   this.expenses.push(expense);
   }
 
-  addExpense(expense: Expense){
-    expense.id = uuidV4();
-    this.expenses.add(expense);
+  removeExpense(expenseId){
+    this.expenses.remove(expenseId);
   }
 
-  removeExpense(expenseId: string){
-    this.expenses.delete(expenseId);
-  }
-
-  getExpenses(): Dexie.Promise<Expense[]>{
-    return this.expenses.toArray();
+  getExpenses() {
+    return this.expenses;
   }
 }

@@ -9,7 +9,7 @@
 
 <ion-content padding>  
   <ion-list>
-     <button ion-item *ngFor="let expense of expenses"
+     <button ion-item *ngFor="let expense of expenses | async"
      (click)="onItemClick(expense)">
        <h2>{{expense.amount | currency: 'USD': true }}</h2>
        <p> {{expense.date | date}} - {{expense.description}}</p>
