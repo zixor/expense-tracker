@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 //import { Expense } from './expense.model';
+import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseListObservable  } from 'angularfire2/database';
 
 /** 
@@ -14,22 +15,22 @@ import { AngularFireDatabase, FirebaseListObservable  } from 'angularfire2/datab
 export class ExpenseService {
 
     categories = ['Food','Travel','Other'];
-    expenses: FirebaseListObservable<any[]>;
+    public expenses: FirebaseListObservable<any[]>;
 
     constructor(private afDB: AngularFireDatabase){
-        this.expenses = this.afDB.list('/expenses');
+        this.expenses = this.afDB.list('/expenses');        
     }  
 
-  updateExpense(expense){    
-   this.expenses.update(expense.$key, expense);
+  updateExpense(expense): firebase.Promise<void>{    
+    return this.expenses.update(expense.$key, expense);
   }
 
-  addExpense(expense){
-   this.expenses.push(expense);
+  addExpense(expense): firebase.Promise<void>{
+   return this.expenses.push(expense);
   }
 
-  removeExpense(expenseId){
-    this.expenses.remove(expenseId);
+  removeExpense(expenseId): firebase.Promise<void>{  
+   return this.expenses.remove(expenseId);
   }
 
   getExpenses() {

@@ -7,9 +7,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>  
-  <ion-list>    
-     <button ion-item *ngFor="let expense of expenses | async"
+<ion-content>  
+   <ion-refresher (ionRefresh)="doRefresh($event);" class="refresher">
+    <ion-refresher-content      
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>       
+     <button ion-item *ngFor="let expense of expenses "
      (click)="onItemClick(expense)">
        <ion-avatar item-left>
                 <img src="{{expense.photoUrl}}">  

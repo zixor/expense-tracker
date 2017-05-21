@@ -4,7 +4,7 @@ import { Detail } from '../detail/detail';
 //import { Expense } from '../../app/expense.model';
 import { ExpenseService } from '../../app/expense.service';
 import { Login } from '../login/login';
-import { FirebaseListObservable  } from 'angularfire2/database';
+//import { FirebaseListObservable  } from 'angularfire2/database';
 
 @Component({
   selector: 'page-home',
@@ -12,7 +12,7 @@ import { FirebaseListObservable  } from 'angularfire2/database';
 })
 export class HomePage {
 
- private expenses: FirebaseListObservable<any[]>;
+ private expenses: any[];
 
   constructor(private navCtrl: NavController,
               private expenseService: ExpenseService
@@ -22,15 +22,23 @@ export class HomePage {
     if(!this.isUserAlreadyLoggedIn()) {
             this.navCtrl.push(Login);
       }else{
-            this.expenses =  this.expenseService.getExpenses();
+        this.doRefresh(0);
     }
   }
 
   onItemClick(expense){
-      console.log(expense);
       this.navCtrl.push(Detail,{
         expense : expense
       });
+  }
+
+  doRefresh(refresher){    
+      this.expenseService.expenses.subscribe(data=>{
+        this.expenses = data;
+        if(refresher != 0){
+          refresher.complete();
+        }
+      });        
   }
 
   onAddClick(){
