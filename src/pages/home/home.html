@@ -8,9 +8,12 @@
 </ion-header>
 
 <ion-content padding>  
-  <ion-list>
+  <ion-list>    
      <button ion-item *ngFor="let expense of expenses | async"
      (click)="onItemClick(expense)">
+       <ion-avatar item-left>
+                <img src="{{expense.photoUrl}}">  
+       </ion-avatar>                           
        <h2>{{expense.amount | currency: 'USD': true }}</h2>
        <p> {{expense.date | date}} - {{expense.description}}</p>
        <ion-note item-right>{{expense.category}}</ion-note>

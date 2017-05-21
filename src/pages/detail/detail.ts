@@ -35,6 +35,9 @@ export class Detail {
   }
 
   onSave(){
+    let userProfile = JSON.parse(window.localStorage.getItem("userProfile"));
+    this.expense.user = userProfile.username;
+    this.expense.photoUrl = userProfile.photoUrl;
     if(this.expense.$key){
       this.expenseService.updateExpense(this.expense);
     }else{
