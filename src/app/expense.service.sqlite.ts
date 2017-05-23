@@ -1,4 +1,4 @@
-import { SQLite } from 'ionic-native';
+import { SQLite } from 'ionic-native'; 
 import { Expense } from './expense.model';
 
 export class ExpenseService {

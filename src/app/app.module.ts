@@ -16,8 +16,15 @@ import { HomePage } from '../pages/home/home';
 import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
-import { ListArticle } from '../pages/list-article/list-article';
-import { ArticlePage } from '../pages/article-page/article-page';
+//Imports pages to Use
+import { Dashboard } from '../pages/dashboard/dashboard';
+import { History } from '../pages/history/history';
+import { Budget } from '../pages/budget/budget';
+import { Waranty } from '../pages/waranty/waranty';
+import { Backup } from '../pages/backup/backup';
+import { Settings } from '../pages/settings/settings';
+import { RateUs } from '../pages/rate-us/rate-us';
+import { LikeFB } from '../pages/like-fb/like-fb';
 
 
 export const firebaseConfig  = {
@@ -43,8 +50,14 @@ export const firebaseConfig  = {
     Detail,
     Login,
     ListPage,
-    ListArticle,
-    ArticlePage
+    Dashboard, 
+    History, 
+    Budget,
+    Waranty,
+    Backup,
+    Settings,
+    RateUs,
+    LikeFB
   ],    
   entryComponents: [
     MyApp,
@@ -52,8 +65,13 @@ export const firebaseConfig  = {
     Detail,
     Login,
     ListPage,
-    ListArticle,
-    ArticlePage
+    History, 
+    Budget,
+    Waranty,
+    Backup,
+    Settings,
+    RateUs,
+    LikeFB
   ],
   providers: [    
     ExpenseService,

@@ -3,7 +3,16 @@ import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
+//Imports pages to Use
+import { Dashboard } from '../pages/dashboard/dashboard';
+import { History } from '../pages/history/history';
+import { Budget } from '../pages/budget/budget';
+import { Waranty } from '../pages/waranty/waranty';
+import { Backup } from '../pages/backup/backup';
+import { Settings } from '../pages/settings/settings';
+import { RateUs } from '../pages/rate-us/rate-us';
+import { LikeFB } from '../pages/like-fb/like-fb';
+
 //import { ListPage } from '../pages/list/list';
 //import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
@@ -38,12 +47,17 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Expenses',   component: HomePage },
+      
+      { title: 'Dashboard', component: Dashboard },
+      { title: 'History',   component: History },
+      { title: 'Budget',    component: Budget },
+      { title: 'Waranty',   component: Waranty },
+      { title: 'Backup',    component: Backup },
+      { title: 'Settings',  component: Settings },
+      { title: 'Rate Us',   component: RateUs },
+      { title: 'Like us on FaceBook',   component: LikeFB },            
       { title: 'Exit',      component: Login },
-      /*{ title: 'Artículos', component: ListArticle },
-      { title: 'Empleados', component: Login },
-      { title: 'Clientes',  component: Login },
-      { title: 'Ventas',    component: ListPage },     */ 
+      
     ];
 
     this.events.subscribe("userProfile:changed", userProfile => {
