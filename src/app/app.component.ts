@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 //Imports pages to Use
+import { HomePage } from '../pages/home/home';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { History } from '../pages/history/history';
 import { Budget } from '../pages/budget/budget';
