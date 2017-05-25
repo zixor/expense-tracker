@@ -15,4 +15,8 @@ export class Dashboard {
     console.log('ionViewDidLoad Dashboard');
   }
 
+  showItem(){
+   console.log("show in cloud");
+  }
+
 }

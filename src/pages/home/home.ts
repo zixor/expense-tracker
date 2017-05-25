@@ -13,17 +13,18 @@ import { Login } from '../login/login';
 export class HomePage {
 
  private expenses: any[];
+ private balance: number = 0;
 
   constructor(private navCtrl: NavController,
               private expenseService: ExpenseService
               ) {  }
 
   ionViewWillEnter(){
-    if(!this.isUserAlreadyLoggedIn()) {
+   /* if(!this.isUserAlreadyLoggedIn()) {
             this.navCtrl.push(Login);
       }else{
         this.doRefresh(0);
-    }
+    }*/
   }
 
   onItemClick(expense){

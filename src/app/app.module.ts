@@ -14,16 +14,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
-import { ListPage } from '../pages/list/list';
 //Imports pages to Use
 import { Dashboard } from '../pages/dashboard/dashboard';
-import { History } from '../pages/history/history';
-import { Budget } from '../pages/budget/budget';
-import { Waranty } from '../pages/waranty/waranty';
-import { Backup } from '../pages/backup/backup';
 import { Settings } from '../pages/settings/settings';
-import { RateUs } from '../pages/rate-us/rate-us';
-import { LikeFB } from '../pages/like-fb/like-fb';
+
+
 
 
 export const firebaseConfig  = {
@@ -48,29 +43,16 @@ export const firebaseConfig  = {
     HomePage,
     Detail,
     Login,
-    ListPage,
-    Dashboard, 
-    History, 
-    Budget,
-    Waranty,
-    Backup,
+    Dashboard,   
     Settings,
-    RateUs,
-    LikeFB
   ],    
   entryComponents: [
     MyApp,
     HomePage,
     Detail,
-    Login,
-    ListPage,
-    History, 
-    Budget,
-    Waranty,
-    Backup,
-    Settings,
-    RateUs,
-    LikeFB
+    Login,    
+    Dashboard,
+    Settings    
   ],
   providers: [    
     ExpenseService,

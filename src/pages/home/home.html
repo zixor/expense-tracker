@@ -1,24 +1,21 @@
 <ion-header>
-  <ion-navbar color="primary">
-     <button ion-button menuToggle>
+  <ion-navbar color="light">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Expenses</ion-title>
+    <ion-title center>
+      Total Balance {{ balance | currency: 'USD': true }}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>  
-   <ion-refresher (ionRefresh)="doRefresh($event);" class="refresher">
-    <ion-refresher-content      
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Refreshing...">
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event);" class="refresher">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list>       
-     <button ion-item *ngFor="let expense of expenses "
-     (click)="onItemClick(expense)">
+  <ion-list>
+    <button ion-item *ngFor="let expense of expenses " (click)="onItemClick(expense)">
        <ion-avatar item-left>
                 <img src="{{expense.photoUrl}}">  
        </ion-avatar>                           
@@ -26,10 +23,11 @@
        <p> {{expense.date | date}} - {{expense.description}}</p>
        <ion-note item-right>{{expense.category}}</ion-note>
      </button>
-  </ion-list>  
-  <ion-fab right bottom>
-    <button ion-fab color="primary" (click)="onAddClick()">
+  </ion-list>
+  <br>
+  <ion-fab center bottom>
+    <button ion-fab color="#fav-icon" (click)="onAddClick()">
       <ion-icon name="add"></ion-icon>
     </button>
- </ion-fab>
+  </ion-fab>
 </ion-content>

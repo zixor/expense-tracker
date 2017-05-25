@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar color="primary">
-     <button ion-button menuToggle>
+  <ion-navbar color="light">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{expense.description ||  'New Expense' }} </ion-title>
+    <ion-title>{{expense.description || 'New Expense' }} </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="onTrash()" *ngIf="expense.$key">
           <ion-icon name="trash"></ion-icon>
@@ -16,26 +16,25 @@
 </ion-header>
 <ion-content padding>
   <form #f="ngForm">
-      <ion-item>
-          <ion-label color="primary" stacked>Date</ion-label>
-          <ion-datetime [(ngModel)]="expense.date" 
-                        name="date" required></ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" stacked>Amount</ion-label>
-          <ion-input type="number" [(ngModel)]="expense.amount" 
-                     name="amount"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" stacked>Category</ion-label>
-          <ion-select [(ngModel)]="expense.category" name="category" required>
-              <ion-option *ngFor="let category of categories">{{ category }}</ion-option>        
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" stacked>Description</ion-label>
-          <ion-input type="text" [(ngModel)]="expense.description"
-                     name="description" required></ion-input>
-        </ion-item>
+    <ion-item>
+      <ion-label color="light" stacked>Date</ion-label>
+      <ion-datetime [(ngModel)]="expense.date" name="date" required></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label color="light" stacked>Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="expense.amount" name="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="light" stacked>Category</ion-label>
+      <ion-select [(ngModel)]="expense.category" name="category" required>
+        <ion-option *ngFor="let category of categories">             
+          {{ category }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label color="light" stacked>Description</ion-label>
+      <ion-input type="text" [(ngModel)]="expense.description" name="description" required></ion-input>
+    </ion-item>
   </form>
 </ion-content>

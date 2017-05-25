@@ -70,4 +70,8 @@ export class Login {
     }); 
   }  
 
+  singIn(){
+    this.navCtrl.setRoot( HomePage );
+  }
+
 }

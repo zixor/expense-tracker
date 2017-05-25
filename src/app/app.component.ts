@@ -6,19 +6,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 //Imports pages to Use
 import { HomePage } from '../pages/home/home';
 import { Dashboard } from '../pages/dashboard/dashboard';
-import { History } from '../pages/history/history';
-import { Budget } from '../pages/budget/budget';
-import { Waranty } from '../pages/waranty/waranty';
-import { Backup } from '../pages/backup/backup';
 import { Settings } from '../pages/settings/settings';
-import { RateUs } from '../pages/rate-us/rate-us';
-import { LikeFB } from '../pages/like-fb/like-fb';
-
-//import { ListPage } from '../pages/list/list';
-//import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
 import { UserProfile } from "./user-profile.model";
-//import { ListArticle } from "../pages/list-article/list-article";
+
 
 @Component({
   templateUrl: 'app.html'
@@ -49,15 +40,10 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       
-      { title: 'Dashboard', component: Dashboard },
-      { title: 'History',   component: History },
-      { title: 'Budget',    component: Budget },
-      { title: 'Waranty',   component: Waranty },
-      { title: 'Backup',    component: Backup },
-      { title: 'Settings',  component: Settings },
-      { title: 'Rate Us',   component: RateUs },
-      { title: 'Like us on FaceBook',   component: LikeFB },            
-      { title: 'Exit',      component: Login },
+      { title: 'Dashboard', component: HomePage },
+      { title: 'Incomes',   component: Dashboard },  
+      { title: 'Settings',  component: Settings } ,  
+      { title: 'Log Out',   component: Login} 
       
     ];
 
