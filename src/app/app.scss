@@ -1,3 +1,20 @@
 .profile-card {
   box-shadow : none;
 }
+
+div.datepicker-modal-buttons[_ngcontent-c0]{   
+    position: inherit; 
+    width: 100%;
+    bottom: 0px;    
+    display: flex;
+}
+
+button.datepicker-ok-js.button.button-clear.button-small.disable-hover.button.button-ios.button-default.button-default-ios{
+    background-color: white;
+    color: blue;
+}
+
+button.button.datepicker-cancel-js.button.button-clear.button-small.col-offset-33.disable-hover.button.button-ios.button-default.button-default-ios{
+    background-color: white;
+    color: blue;
+}

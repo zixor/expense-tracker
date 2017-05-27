@@ -3,8 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { DatePickerModule } from 'datepicker-ionic2';
+//import { SQLite } from '@ionic-native/sqlite';
 
-import { ExpenseService } from './expense.service';
+//import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -36,7 +38,8 @@ export const firebaseConfig  = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig, 'weonsoft-pos'),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    DatePickerModule,
   ],
   declarations: [
     MyApp,
@@ -44,7 +47,7 @@ export const firebaseConfig  = {
     Detail,
     Login,
     Dashboard,   
-    Settings,
+    Settings
   ],    
   entryComponents: [
     MyApp,
@@ -52,11 +55,13 @@ export const firebaseConfig  = {
     Detail,
     Login,    
     Dashboard,
-    Settings    
+    Settings
+
   ],
   providers: [    
-    ExpenseService,
+  //  ExpenseSqliteService,
     StatusBar,SplashScreen,
+  //  SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
     ],
   bootstrap: [IonicApp]

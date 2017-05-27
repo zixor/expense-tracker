@@ -1,65 +1,72 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams, AlertController} from 'ionic-angular';
-import { ExpenseService } from '../../app/expense.service';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+//import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 //import { Expense } from '../../app/expense.model';
 
 
 
 @Component({
   selector: 'page-detail',
-  templateUrl: 'detail.html',
+  templateUrl: 'detail.html'
 })
 export class Detail {
 
- private expense;
- private categories: string[];
- 
+  private expense;
+  private categories: string[];
+
 
   constructor(private navCtrl: NavController,
-              private navParms: NavParams,
-              private expenseService: ExpenseService,
-              private alertCtrl: AlertController) {
-    this.categories = expenseService.categories;
+    private navParms: NavParams,
+    //private expenseService: ExpenseSqliteService,
+    private alertCtrl: AlertController,
+    ) {
+    this.categories = ['Food', 'Travel', 'Other'];
     this.expense = {
-        date:'',
-        amount: 0,
-        category:'',
-        description: ''
+      date: '',
+      amount: 0,
+      category: '',
+      description: ''
     };
 
     const expense = navParms.get('expense');
-    if(expense){   
-      this.expense = expense;    
+    if (expense) {
+      this.expense = expense;
     }
-    
+
+
   }
 
-  onSave(){
-    let userProfile = JSON.parse(window.localStorage.getItem("userProfile"));
-    this.expense.user = userProfile.username;
-    this.expense.photoUrl = userProfile.photoUrl;
-    if(this.expense.$key){
-      this.expenseService.updateExpense(this.expense);
-    }else{
-      this.expenseService.addExpense(this.expense);
-    }
-    this.navCtrl.pop();
+  setDate($event) {     
+      console.log($event);
   }
 
-  onTrash(){
-     let confirm = this.alertCtrl.create({
+
+  onSave() {
+    /*  let userProfile = JSON.parse(window.localStorage.getItem("userProfile"));
+      this.expense.user = userProfile.username;
+      this.expense.photoUrl = userProfile.photoUrl;
+      if (this.expense.$key) {
+        this.expenseService.update(this.expense);
+      } else {*/
+   // this.expenseService.add(this.expense);
+    /* }
+     this.navCtrl.pop();*/
+  }
+
+  onTrash() {
+    let confirm = this.alertCtrl.create({
       title: 'Delete',
       message: `Are you sure you want to delete this expense: "${this.expense.description}"?`,
       buttons: [
         {
           text: 'Cancel',
-          handler: () => {        
+          handler: () => {
           }
         },
         {
           text: 'Confirm',
           handler: () => {
-            this.expenseService.removeExpense(this.expense.$key);
+        //    this.expenseService.delete(this.expense.$key);
             this.navCtrl.pop();
           }
         }

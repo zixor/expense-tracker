@@ -17,7 +17,8 @@
   <ion-list>
     <button ion-item *ngFor="let expense of expenses " (click)="onItemClick(expense)">
        <ion-avatar item-left>
-                <img src="{{expense.photoUrl}}">  
+                <!--img src="{{expense.photoUrl}}" -->  
+                <ion-icon name="person"></ion-icon>
        </ion-avatar>                           
        <h2>{{expense.amount | currency: 'USD': true }}</h2>
        <p> {{expense.date | date}} - {{expense.description}}</p>
@@ -25,7 +26,7 @@
      </button>
   </ion-list>
   <br>
-  <ion-fab center bottom>
+  <ion-fab right bottom>
     <button ion-fab color="#fav-icon" (click)="onAddClick()">
       <ion-icon name="add"></ion-icon>
     </button>

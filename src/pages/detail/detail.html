@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="light">
+  <ion-navbar color="danger">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -17,23 +17,31 @@
 <ion-content padding>
   <form #f="ngForm">
     <ion-item>
-      <ion-label color="light" stacked>Date</ion-label>
-      <ion-datetime [(ngModel)]="expense.date" name="date" required></ion-datetime>
+      <!--ion-label color="danger" stacked>Text</ion-label-->
+      <!--ion-datetime [(ngModel)]="expense.date" name="date" required></ion-datetime-->
+      <span ion-datepicker (ionChanged)="setDate($event);" 
+            [value]="localDate" 
+            [min]="localDate" 
+            [full]="false" 
+            [calendar]="false" 
+            clear class="ScheduleDate">
+        <span>{{ localDate | date }} <ion-icon name="calendar" item-left ></ion-icon> </span>
+    </span>
     </ion-item>
     <ion-item>
-      <ion-label color="light" stacked>Amount</ion-label>
+      <ion-label color="danger" stacked>Amount</ion-label>
       <ion-input type="number" [(ngModel)]="expense.amount" name="amount"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="light" stacked>Category</ion-label>
+      <ion-label color="danger" stacked>Category</ion-label>
       <ion-select [(ngModel)]="expense.category" name="category" required>
-        <ion-option *ngFor="let category of categories">             
+        <ion-option *ngFor="let category of categories">
           {{ category }}
         </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label color="light" stacked>Description</ion-label>
+      <ion-label color="danger" stacked>Description</ion-label>
       <ion-input type="text" [(ngModel)]="expense.description" name="description" required></ion-input>
     </ion-item>
   </form>

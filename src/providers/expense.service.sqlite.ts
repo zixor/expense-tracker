@@ -51,9 +51,14 @@ export class ExpenseSqliteService {
 
   update(expense: Expense) {
 
-    let sql = 'UPDATE expenses SET date=?, amount=?, category=?, description=? WHERE id=?';
+    let sql = 'UPDATE expense SET date=?, amount=?, category=?, description=? WHERE id=?';
     this.db.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description]);
 
+  }
+
+  add(expense: Expense){
+    let sql = 'insert into expense ( date,amount,category, description ) values ( ?,?,?,? )';
+    this.db.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description]);
   }
 
   closeConnection() {

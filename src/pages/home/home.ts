@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
 //import { Expense } from '../../app/expense.model';
-import { ExpenseService } from '../../app/expense.service';
+//import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { Login } from '../login/login';
 //import { FirebaseListObservable  } from 'angularfire2/database';
+import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 
 @Component({
   selector: 'page-home',
@@ -16,7 +17,7 @@ export class HomePage {
  private balance: number = 0;
 
   constructor(private navCtrl: NavController,
-              private expenseService: ExpenseService
+             // private expenseService: ExpenseSqliteService
               ) {  }
 
   ionViewWillEnter(){
@@ -34,12 +35,17 @@ export class HomePage {
   }
 
   doRefresh(refresher){    
-      this.expenseService.expenses.subscribe(data=>{
+      /* this.expenseService.expenses.subscribe(data=>{
         this.expenses = data;
         if(refresher != 0){
           refresher.complete();
         }
-      });        
+      });  
+      */
+
+    //  this.expenseService.getAll()
+      //.then( data =>{ this.expenses = data })
+     // .catch( e => console.log(e));
   }
 
   onAddClick(){
