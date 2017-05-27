@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar color="light">
+  <ion-navbar color="header" >
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title center>
+    <ion-title style="text-align:center;">
       Total Balance {{ balance | currency: 'USD': true }}
     </ion-title>
   </ion-navbar>
@@ -27,7 +27,7 @@
   </ion-list>
   <br>
   <ion-fab right bottom>
-    <button ion-fab color="#fav-icon" (click)="onAddClick()">
+    <button ion-fab color="add-item" (click)="onAddClick()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
