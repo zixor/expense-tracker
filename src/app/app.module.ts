@@ -16,6 +16,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
+import { ListCategory } from '../pages/list-category/list-category';
 //Imports pages to Use
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
@@ -47,7 +48,8 @@ export const firebaseConfig  = {
     Detail,
     Login,
     Dashboard,   
-    Settings
+    Settings,
+    ListCategory
   ],    
   entryComponents: [
     MyApp,
@@ -55,8 +57,8 @@ export const firebaseConfig  = {
     Detail,
     Login,    
     Dashboard,
-    Settings
-
+    Settings,
+    ListCategory
   ],
   providers: [    
   //  ExpenseSqliteService,

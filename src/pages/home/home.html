@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="header" >
+  <ion-navbar color="header">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -15,15 +15,14 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <button ion-item *ngFor="let expense of expenses " (click)="onItemClick(expense)">
-       <ion-avatar item-left>
-                <!--img src="{{expense.photoUrl}}" -->  
-                <ion-icon name="person"></ion-icon>
-       </ion-avatar>                           
-       <h2>{{expense.amount | currency: 'USD': true }}</h2>
-       <p> {{expense.date | date}} - {{expense.description}}</p>
-       <ion-note item-right>{{expense.category}}</ion-note>
-     </button>
+    <button ion-item *ngFor="let expense of expenses " (click)="onItemClick(expense)">      
+    <button item-left ion-fab color="add-item" style="box-shadow:none">
+      <ion-icon name="{{expense.icon}}"></ion-icon>
+    </button>
+    <h2 item-center>{{expense.amount | currency: 'USD': true }}</h2>
+    <p item-center> {{expense.date | date}} - {{expense.description}}</p>
+    <ion-note item-right>{{expense.category}}</ion-note>
+    </button>
   </ion-list>
   <br>
   <ion-fab right bottom>

@@ -16,18 +16,26 @@
 </ion-header>
 <ion-content padding>
   <form #f="ngForm">
-    <ion-item>
-      <!--ion-label color="primary" stacked>Text</ion-label-->
-      <!--ion-datetime [(ngModel)]="expense.date" name="date" required></ion-datetime-->
-      <span ion-datepicker (ionChanged)="setDate($event);" 
-            [value]="localDate" 
-            [min]="localDate" 
-            [full]="false" 
-            [calendar]="false" 
-            clear class="ScheduleDate">
-        <span>{{ localDate | date }} <ion-icon name="calendar" item-left ></ion-icon> </span>
-    </span>
-    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-auto>
+          <div>
+            <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+              clear class="ScheduleDate">
+              <span>{{ localDate | date }} <ion-label color="primary" stacked>Date</ion-label> </span>
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="expense.date" name="date" required readonly></ion-input></ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
     <ion-item>
       <ion-label color="primary" stacked>Amount</ion-label>
       <ion-input type="number" [(ngModel)]="expense.amount" name="amount"></ion-input>

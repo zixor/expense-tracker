@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 //import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 //import { Expense } from '../../app/expense.model';
-
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-detail',
@@ -18,7 +17,7 @@ export class Detail {
   constructor(private navCtrl: NavController,
     private navParms: NavParams,
     //private expenseService: ExpenseSqliteService,
-    private alertCtrl: AlertController,
+    private alertCtrl: AlertController
     ) {
     this.categories = ['Food', 'Travel', 'Other'];
     this.expense = {
@@ -36,9 +35,12 @@ export class Detail {
 
   }
 
-  setDate($event) {     
-      console.log($event);
+  setDate(date) {    
+    moment
+    this.expense.date =  moment(date).format("MMM Do YYYY");; 
+    console.log(date);
   }
+
 
 
   onSave() {

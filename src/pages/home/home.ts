@@ -13,46 +13,57 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 })
 export class HomePage {
 
- private expenses: any[];
- private balance: number = 0;
+  private expenses: any[] = [];
+  private balance: number = 0;
+
 
   constructor(private navCtrl: NavController,
-             // private expenseService: ExpenseSqliteService
-              ) {  }
+    // private expenseService: ExpenseSqliteService
+  ) {
 
-  ionViewWillEnter(){
-   /* if(!this.isUserAlreadyLoggedIn()) {
-            this.navCtrl.push(Login);
-      }else{
-        this.doRefresh(0);
-    }*/
+    this.expenses.push({
+      date: new Date() ,
+      amount: 234,
+      category: 'Sport',
+      description: 'Descrition',
+      icon: "bus"
+    });
+    
   }
 
-  onItemClick(expense){
-      this.navCtrl.push(Detail,{
-        expense : expense
-      });
+  ionViewWillEnter() {
+    /* if(!this.isUserAlreadyLoggedIn()) {
+             this.navCtrl.push(Login);
+       }else{
+         this.doRefresh(0);
+     }*/
   }
 
-  doRefresh(refresher){    
-      /* this.expenseService.expenses.subscribe(data=>{
-        this.expenses = data;
-        if(refresher != 0){
-          refresher.complete();
-        }
-      });  
-      */
+  onItemClick(expense) {
+    this.navCtrl.push(Detail, {
+      expense: expense
+    });
+  }
+
+  doRefresh(refresher) {
+    /* this.expenseService.expenses.subscribe(data=>{
+      this.expenses = data;
+      if(refresher != 0){
+        refresher.complete();
+      }
+    });  
+    */
 
     //  this.expenseService.getAll()
-      //.then( data =>{ this.expenses = data })
-     // .catch( e => console.log(e));
+    //.then( data =>{ this.expenses = data })
+    // .catch( e => console.log(e));
   }
 
-  onAddClick(){
+  onAddClick() {
     this.navCtrl.push(Detail);
   }
 
-  isUserAlreadyLoggedIn(){
+  isUserAlreadyLoggedIn() {
     let user = window.localStorage.getItem('userProfile');
     return user !== null;
   }

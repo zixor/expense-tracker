@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
 import { Login } from '../pages/login/login';
+import { ListCategory } from '../pages/list-category/list-category';
 import { UserProfile } from "./user-profile.model";
 
 
@@ -41,6 +42,7 @@ export class MyApp {
     this.pages = [
       
       { title: 'Dashboard', component: HomePage },
+      { title: 'Category',  component: ListCategory },
       { title: 'Incomes',   component: Dashboard },  
       { title: 'Settings',  component: Settings } ,  
       { title: 'Log Out',   component: Login} 
