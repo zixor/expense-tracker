@@ -18,6 +18,10 @@ import { Detail } from '../pages/detail/detail';
 import { Login } from '../pages/login/login';
 import { ListCategory } from '../pages/list-category/list-category';
 import { Category } from '../pages/category/category';
+import { ModalColors } from '../pages/modal-colors/modal-colors';
+import { ModalIcons } from '../pages/modal-icons/modal-icons';
+
+
 //Imports pages to Use
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
@@ -51,7 +55,9 @@ export const firebaseConfig  = {
     Dashboard,   
     Settings,
     ListCategory,
-    Category
+    Category,
+    ModalColors,
+    ModalIcons
   ],    
   entryComponents: [
     MyApp,
@@ -61,7 +67,9 @@ export const firebaseConfig  = {
     Dashboard,
     Settings,
     ListCategory,
-    Category
+    Category,
+    ModalColors,
+    ModalIcons
   ],
   providers: [    
   //  ExpenseSqliteService,

@@ -3,8 +3,8 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title  style="text-align:center;">{{category.name || 'New Category' }} </ion-title>
-    <ion-buttons end>     
+    <ion-title style="text-align:center;">{{category.name || 'New Category' }} </ion-title>
+    <ion-buttons end>
       <button ion-button icon-only disabled>
           <ion-icon name="checkmark"></ion-icon>
       </button>
@@ -17,7 +17,7 @@
     <ion-grid>
       <ion-row>
         <ion-col col-2>
-          <button ion-fab color="{{category.color}}" item-left style="box-shadow:none;">
+          <button ion-fab color="{{category.color}}" item-left style="box-shadow:none;" (click)="onModalIcons();">
             <ion-icon name="{{category.icon}}"></ion-icon>
           </button>
         </ion-col>
@@ -33,8 +33,10 @@
       <ion-label color="primary" stacked>Description</ion-label>
       <ion-input type="text" [(ngModel)]="category.description" name="description"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Color</ion-label>
-    </ion-item>
+    <br>
+    <button ion-button color="primary" block (click)="openModalColors();">
+      <ion-icon name="color-palette"  item-left></ion-icon>
+        Choose Color
+    </button>
   </form>
 </ion-content>

@@ -12,7 +12,8 @@ export class ListCategory {
 
   private categories: CategoryModel[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController,
+              private navParams: NavParams) {
 
     this.categories.push({
       id: 1,
@@ -51,4 +52,5 @@ export class ListCategory {
   doRefresh(refresher) {
 
   }
+
 }

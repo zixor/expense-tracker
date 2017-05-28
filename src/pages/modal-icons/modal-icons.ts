@@ -1,24 +1,38 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { NavController, ViewController, NavParams } from "ionic-angular";
 
-/**
- * Generated class for the ModalIcons page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+
 @Component({
-  selector: 'page-modal-icons',
-  templateUrl: 'modal-icons.html',
+  selector: "page-modal-icons",
+  templateUrl: "modal-icons.html",
 })
 export class ModalIcons {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private icons: string[];
+  private selectedIcon: string;
+
+  constructor(private navCtrl: NavController,
+    private navParams: NavParams,
+    private viewCtl: ViewController) {
+    this.icons = ["game-controller-b", "pizza", "bus", "medkit", "plane", "musical-note",
+      "logo-playstation", "leaf", "alarm", "analytics", "american-football",
+      "logo-android", "logo-apple", "at", "attach", "basketball", "basket",
+      "beer", "bicycle", "bonfire", "bookmarks", "bowtie", "brush", "car",
+      "contacts", "cut", "flash", "football", "headset", "heart-outline",
+      "home", "ice-cream", "images", "paw", "school", "rose", "shirt", "logo-snapchat",
+      "stats", "train", "watch", "wine", "body", "build", "cafe"];
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalIcons');
+    console.log("ionViewDidLoad ModalIcons");
   }
 
+  onSelectedIcon(icon) {
+    this.viewCtl.dismiss(icon);
+  }
+
+
+  closeModal() {
+    this.viewCtl.dismiss(this.selectedIcon);
+  }
 }

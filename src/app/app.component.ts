@@ -20,7 +20,7 @@ export class MyApp {
 
   rootPage: any = Login;
 
-  pages: Array<{title: string, component: any}>;
+  private pages: Array<{title: string, component: any, icon: string}>;
   userProfile: UserProfile;
 
 
@@ -41,11 +41,11 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       
-      { title: 'Dashboard', component: HomePage },
-      { title: 'Category',  component: ListCategory },
-      { title: 'Incomes',   component: Dashboard },  
-      { title: 'Settings',  component: Settings } ,  
-      { title: 'Log Out',   component: Login} 
+      { title: 'Dashboard', component: HomePage, icon:'pulse' },
+      { title: 'Category',  component: ListCategory,  icon:'cube' },
+      { title: 'Incomes',   component: Dashboard, icon:'flash' },  
+      { title: 'Settings',  component: Settings, icon: 'hammer'} ,  
+      { title: 'Log Out',   component: Login, icon: 'exit'} 
       
     ];
 
