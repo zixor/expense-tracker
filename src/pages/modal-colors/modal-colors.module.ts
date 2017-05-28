@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Category } from './category';
+import { ModalColors } from './modal-colors';
 
 @NgModule({
   declarations: [
-    Category,
+    ModalColors,
   ],
   imports: [
-    IonicPageModule.forChild(Category),
+    IonicPageModule.forChild(ModalColors),
   ],
   exports: [
-    Category
+    ModalColors
   ]
 })
-export class CategoryModule {}
+export class ModalColorsModule {}

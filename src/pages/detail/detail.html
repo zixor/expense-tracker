@@ -17,20 +17,21 @@
 <ion-content padding>
   <form #f="ngForm">
 
+
     <ion-grid>
       <ion-row>
-        <ion-col col-auto>
-          <div>
-            <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+        <ion-col col-2>
+             <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
               clear class="ScheduleDate">
-              <span>{{ localDate | date }} <ion-label color="primary" stacked>Date</ion-label> </span>
+              <span>{{ localDate | date }}  
+                  <button ion-fab color="add-item" item-left style="box-shadow:none;">
+                    <ion-icon name="calendar"></ion-icon>
+                  </button>
+              </span>
             </span>
-          </div>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
+        <ion-col >         
+          <ion-item item-center>
             <ion-input type="text" [(ngModel)]="expense.date" name="date" required readonly></ion-input></ion-item>
         </ion-col>
       </ion-row>

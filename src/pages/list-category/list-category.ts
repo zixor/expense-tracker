@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Category } from '../../app/category.model';
+import { CategoryModel } from '../../app/category.model';
+import { Category } from '../category/category';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Category } from '../../app/category.model';
 })
 export class ListCategory {
 
-  private categories: Category[] = [];
+  private categories: CategoryModel[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
@@ -39,7 +40,7 @@ export class ListCategory {
   }
 
   onAddClick() {
-
+    this.navCtrl.push(Category);
   }
 
   editCategory(category){
