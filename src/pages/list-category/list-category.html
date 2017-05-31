@@ -35,15 +35,13 @@
       </ion-item>
       <ion-item-options>
         <button ion-button color="danger" icon-left>
-          <ion-icon name="trash"></ion-icon>
+          <ion-icon name="trash" (click)="onTrash(category);"></ion-icon>
           Delete
         </button>                
       </ion-item-options>
     </ion-item-sliding>  
 
   </ion-list>
-
- 
 
   <br>
   <ion-fab right bottom>

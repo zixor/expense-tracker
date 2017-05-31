@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { CategoryModel } from '../../app/category.model';
 import { Category } from '../category/category';
+
+/**Imports services  */
+import { CategorySqliteService } from '../../providers/category.service.sqlite';
+
 
 
 @Component({
@@ -13,22 +17,13 @@ export class ListCategory {
   private categories: CategoryModel[] = [];
 
   constructor(private navCtrl: NavController,
-              private navParams: NavParams) {
+    private navParams: NavParams,
+    private categoryService: CategorySqliteService,
+    private alertCtrl: AlertController) {
 
-    this.categories.push({
-      id: 1,
-      name: "Fun",
-      description: "Have Fun",
-      icon: "game-controller-a",
-      color: "primary"
-    });
-
-    this.categories.push({
-      id: 2,
-      name: "Food",
-      description: "Meals",
-      icon: "md-pizza",
-      color: "danger"
+     this.categoryService.getAll().then(data => {
+      console.log(data);
+      this.categories = data;
     });
   }
 
@@ -36,21 +31,46 @@ export class ListCategory {
     console.log('ionViewDidLoad ListCategory');
   }
 
-  onItemClick() {
-
-  }
-
   onAddClick() {
     this.navCtrl.push(Category);
   }
 
-  editCategory(category){
-    console.log(category);
+  editCategory(category) {
+    this.navCtrl.push(Category, {
+      category: category
+    });
   }
 
 
   doRefresh(refresher) {
+    this.categoryService.getAll()
+      .then(data => {
+        this.categories = data;
+        refresher.complete();
+      })
+      .catch(e => console.log(e));
+  }
 
+  onTrash(category){
+      let confirm = this.alertCtrl.create({
+      title: 'Delete',
+      message: `Are you sure you want to delete this category: "${category.description}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.categoryService.delete(category.id);
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 }

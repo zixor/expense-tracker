@@ -5,7 +5,10 @@
     </button>
     <ion-title style="text-align:center;">{{category.name || 'New Category' }} </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only disabled>
+      <button ion-button icon-only (click)="onTrash()" *ngIf="category.id">
+          <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
           <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
@@ -29,14 +32,17 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+
     <ion-item>
       <ion-label color="primary" stacked>Description</ion-label>
       <ion-input type="text" [(ngModel)]="category.description" name="description"></ion-input>
     </ion-item>
+
     <br>
     <button ion-button color="primary" block (click)="openModalColors();">
       <ion-icon name="color-palette"  item-left></ion-icon>
         Choose Color
     </button>
+    
   </form>
 </ion-content>
