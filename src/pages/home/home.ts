@@ -19,15 +19,7 @@ export class HomePage {
 
   constructor(private navCtrl: NavController,
     private expenseService: ExpenseSqliteService
-  ) {
-
-    this.expenses.push({
-      date: new Date() ,
-      amount: 234,
-      category: 'Sport',
-      description: 'Descrition',
-      icon: "bus"
-    });
+  ) {   
 
     this.expenseService.getAll().then( data => {
        this.expenses = data;
