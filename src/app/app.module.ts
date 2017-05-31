@@ -4,9 +4,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { DatePickerModule } from 'datepicker-ionic2';
-//import { SQLite } from '@ionic-native/sqlite';
+import { SQLite } from '@ionic-native/sqlite';
 
-//import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
+import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -72,9 +72,9 @@ export const firebaseConfig  = {
     ModalIcons
   ],
   providers: [    
-  //  ExpenseSqliteService,
+    ExpenseSqliteService,
     StatusBar,SplashScreen,
-  //  SQLite,
+    SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
     ],
   bootstrap: [IonicApp]

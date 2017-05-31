@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
 //import { Expense } from '../../app/expense.model';
-//import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
+import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { Login } from '../login/login';
 //import { FirebaseListObservable  } from 'angularfire2/database';
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
