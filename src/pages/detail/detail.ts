@@ -36,10 +36,8 @@ export class Detail {
   }
 
   setDate(date) {
-   // this.expense.date = moment(date).format("MMM Do YYYY");
-   this.expense.displayDate = moment(date).format("MMM Do YYYY");
-   this.expense.date = moment(date).format("MM-DD-YYYY");
-    console.log(date);
+   // this.expense.date = moment(date).format("MMM Do YYYY");   
+   this.expense.date = moment(date).format("YYYY-MM-DD");  
   }
 
 

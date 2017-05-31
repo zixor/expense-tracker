@@ -19,13 +19,13 @@ export class HomePage {
 
   constructor(private navCtrl: NavController,
     private expenseService: ExpenseSqliteService
-  ) {   
+  ) {
 
-    this.expenseService.getAll().then( data => {
-       this.expenses = data;
-       console.log(data);
+    this.expenseService.getAll().then(data => {
+      console.log(data);
+      this.expenses = data;
     });
-    
+
   }
 
   ionViewWillEnter() {
@@ -51,9 +51,12 @@ export class HomePage {
     });  
     */
 
-    //  this.expenseService.getAll()
-    //.then( data =>{ this.expenses = data })
-    // .catch( e => console.log(e));
+    this.expenseService.getAll()
+      .then(data => { 
+        this.expenses = data;
+        refresher.complete();
+      })
+      .catch(e => console.log(e));
   }
 
   onAddClick() {

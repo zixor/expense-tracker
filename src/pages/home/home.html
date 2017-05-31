@@ -22,11 +22,11 @@
   <ion-list>
     <button ion-item *ngFor="let expense of expenses " (click)="onItemClick(expense)">      
     <button item-left ion-fab color="add-item" style="box-shadow:none">
-      <ion-icon name="{{expense.icon}}"></ion-icon>
+      <ion-icon name="{{expense.icon}}" *ngIf="expense"></ion-icon>
     </button>
-    <h2 item-center>{{expense.amount | currency: 'USD': true }}</h2>
-    <p item-center> {{expense.date | date}} - {{expense.description}}</p>
-    <ion-note item-right>{{expense.category}}</ion-note>
+    <h2 item-center *ngIf="expense">{{expense.amount | currency: 'USD': true }}</h2>
+    <p item-center *ngIf="expense"> {{expense.date | date}} - {{expense.description}}</p>
+    <ion-note item-right *ngIf="expense">{{expense.category}}</ion-note>
     </button>
   </ion-list>
   <br>
