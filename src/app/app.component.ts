@@ -11,6 +11,9 @@ import { Login } from '../pages/login/login';
 import { ListCategory } from '../pages/list-category/list-category';
 import { UserProfile } from "./user-profile.model";
 
+//imports services
+import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +30,8 @@ export class MyApp {
   constructor(public platform: Platform,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              public events: Events ) {
+              public events: Events,
+              private sqlService: ExpenseSqliteService ) {
 
     this.initializeApp();
 
@@ -63,6 +67,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.sqlService.openDataBase();
     });
   }
 

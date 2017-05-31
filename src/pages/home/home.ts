@@ -18,7 +18,7 @@ export class HomePage {
 
 
   constructor(private navCtrl: NavController,
-    // private expenseService: ExpenseSqliteService
+    private expenseService: ExpenseSqliteService
   ) {
 
     this.expenses.push({
@@ -27,6 +27,11 @@ export class HomePage {
       category: 'Sport',
       description: 'Descrition',
       icon: "bus"
+    });
+
+    this.expenseService.getAll().then( data => {
+       this.expenses = data;
+       console.log(data);
     });
     
   }

@@ -5,7 +5,7 @@
     </button>
     <ion-title style="text-align:center;">{{expense.description || 'New Expense' }} </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="onTrash()" *ngIf="expense.$key">
+      <button ion-button icon-only (click)="onTrash()" *ngIf="expense.id">
           <ion-icon name="trash"></ion-icon>
       </button>
       <button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
@@ -32,7 +32,7 @@
         </ion-col>
         <ion-col >         
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="expense.date" name="date" required readonly></ion-input></ion-item>
+            <ion-input type="text" [(ngModel)]="expense.displayDate" name="date" required readonly></ion-input></ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>

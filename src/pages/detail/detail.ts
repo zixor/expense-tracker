@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-//import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
-//import { Expense } from '../../app/expense.model';
+import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
+import { Expense } from '../../app/expense.model';
 import * as moment from 'moment';
 
 @Component({
@@ -16,9 +16,9 @@ export class Detail {
 
   constructor(private navCtrl: NavController,
     private navParms: NavParams,
-    //private expenseService: ExpenseSqliteService,
+    private expenseService: ExpenseSqliteService,
     private alertCtrl: AlertController
-    ) {
+  ) {
     this.categories = ['Food', 'Travel', 'Other'];
     this.expense = {
       date: '',
@@ -35,9 +35,10 @@ export class Detail {
 
   }
 
-  setDate(date) {    
-    moment
-    this.expense.date =  moment(date).format("MMM Do YYYY");; 
+  setDate(date) {
+   // this.expense.date = moment(date).format("MMM Do YYYY");
+   this.expense.displayDate = moment(date).format("MMM Do YYYY");
+   this.expense.date = moment(date).format("MM-DD-YYYY");
     console.log(date);
   }
 
@@ -46,13 +47,13 @@ export class Detail {
   onSave() {
     /*  let userProfile = JSON.parse(window.localStorage.getItem("userProfile"));
       this.expense.user = userProfile.username;
-      this.expense.photoUrl = userProfile.photoUrl;
-      if (this.expense.$key) {
-        this.expenseService.update(this.expense);
-      } else {*/
-   // this.expenseService.add(this.expense);
-    /* }
-     this.navCtrl.pop();*/
+      this.expense.photoUrl = userProfile.photoUrl;*/
+    if (this.expense.id) {
+      this.expenseService.update(this.expense);
+    } else {
+      this.expenseService.add(this.expense);
+    }
+    this.navCtrl.pop();
   }
 
   onTrash() {
@@ -68,7 +69,7 @@ export class Detail {
         {
           text: 'Confirm',
           handler: () => {
-        //    this.expenseService.delete(this.expense.$key);
+            this.expenseService.delete(this.expense);
             this.navCtrl.pop();
           }
         }
