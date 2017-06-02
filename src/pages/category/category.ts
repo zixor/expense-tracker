@@ -21,7 +21,6 @@ export class Category {
               private categoryService: CategorySqliteService,
               private alertCtrl: AlertController) {
     this.category = {
-      id: 1,
       name:"",
       description:"",
       icon:"help",
@@ -34,13 +33,14 @@ export class Category {
   }
 
   onModalIcons(){
-    console.log("modal");
+
     const modal = this.modalCtl.create(ModalIcons);
     modal.present();
 
     modal.onDidDismiss(iconName => {
         this.category.icon = iconName;
     });
+
   }
 
   openModalColors(){
@@ -52,7 +52,7 @@ export class Category {
     });
   }
 
-  onSave() {  
+  onSave() {
     if (this.category.id) {
       this.categoryService.update(this.category);
     } else {
@@ -64,7 +64,7 @@ export class Category {
   onTrash() {
     let confirm = this.alertCtrl.create({
       title: 'Delete',
-      message: `Are you sure you want to delete this expense: "${this.category.description}"?`,
+      message: `Are you sure you want to delete this category: "${this.category.description}"?`,
       buttons: [
         {
           text: 'Cancel',

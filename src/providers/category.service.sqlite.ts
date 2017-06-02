@@ -25,7 +25,7 @@ export class CategorySqliteService {
   createTable() {
     let sql = 'CREATE TABLE IF NOT EXISTS category(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, icon TEXT, color TEXT)';
     this.sqlObject.executeSql(sql, {})
-      .then(() => console.log('Executed SQL'))
+      .then(() => console.log('SQL Category Initialized'))
       .catch(e => console.log(e));
 
   }
@@ -49,6 +49,7 @@ export class CategorySqliteService {
             let category = response.rows.item(index);
             if (category !== undefined) {
               //category.displayDate = moment(category.date).format("dddd, MMMM Do YYYY LT");
+              console.log(category);
               categorys.push(category);
             }
           }
@@ -70,7 +71,7 @@ export class CategorySqliteService {
     return new Promise((resolve, reject) => {
       let sql = 'insert into category ( name, description, icon, color ) values ( ?,?,?,? )';
       this.sqlObject.executeSql(sql, [category.name, category.description, category.icon, category.color])
-        .then(response => {
+        .then(response => {         
           resolve(response);
         })
         .catch(e => console.log(e));

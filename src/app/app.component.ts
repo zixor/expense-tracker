@@ -13,6 +13,7 @@ import { UserProfile } from "./user-profile.model";
 
 //imports services
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
+import { CategorySqliteService } from '../providers/category.service.sqlite';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               public events: Events,
-              private sqlService: ExpenseSqliteService ) {
+              private sqlService: ExpenseSqliteService,
+              private categorySqlService: CategorySqliteService ) {
 
     this.initializeApp();
 
@@ -45,11 +47,11 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       
-      { title: 'Dashboard', component: HomePage, icon:'pulse' },
-      { title: 'Category',  component: ListCategory,  icon:'cube' },
-      { title: 'Incomes',   component: Dashboard, icon:'flash' },  
-      { title: 'Settings',  component: Settings, icon: 'hammer'} ,  
-      { title: 'Log Out',   component: Login, icon: 'exit'} 
+      { title: 'Dashboard',     component: Dashboard, icon:'pulse' },
+      { title: 'Category',      component: ListCategory,  icon:'cube' },
+      { title: 'Transactions',  component: HomePage, icon:'flash' },  
+      { title: 'Settings',      component: Settings, icon: 'hammer'} ,  
+      { title: 'Log Out',       component: Login, icon: 'exit'} 
       
     ];
 
@@ -68,6 +70,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.sqlService.openDataBase();
+      this.categorySqlService.openDataBase();
     });
   }
 

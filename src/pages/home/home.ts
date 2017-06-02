@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
 //import { Expense } from '../../app/expense.model';
 import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
@@ -18,14 +18,16 @@ export class HomePage {
 
 
   constructor(private navCtrl: NavController,
-    private expenseService: ExpenseSqliteService
-  ) {
+    private expenseService: ExpenseSqliteService,
+    private alertCtrl: AlertController
+  ) {    
+      this.findAll();
+  }
 
-    this.expenseService.getAll().then(data => {
-      console.log(data);
+  findAll(){
+    this.expenseService.getAll().then(data => {      
       this.expenses = data;
     });
-
   }
 
   ionViewWillEnter() {
@@ -66,6 +68,29 @@ export class HomePage {
   isUserAlreadyLoggedIn() {
     let user = window.localStorage.getItem('userProfile');
     return user !== null;
+  }
+
+  onTrash(expense){
+    console.log("onTrash");
+      let confirm = this.alertCtrl.create({
+      title: 'Delete',
+      message: `Are you sure you want to delete this expense: "${expense.description}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.expenseService.delete(expense);
+            this.findAll();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 

@@ -52,6 +52,7 @@ export class ListCategory {
   }
 
   onTrash(category){
+    console.log("On trash category");
       let confirm = this.alertCtrl.create({
       title: 'Delete',
       message: `Are you sure you want to delete this category: "${category.description}"?`,
@@ -64,7 +65,7 @@ export class ListCategory {
         {
           text: 'Confirm',
           handler: () => {
-            this.categoryService.delete(category.id);
+            this.categoryService.delete(category);
             this.navCtrl.pop();
           }
         }

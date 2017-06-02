@@ -7,6 +7,7 @@ import { DatePickerModule } from 'datepicker-ionic2';
 import { SQLite } from '@ionic-native/sqlite';
 
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
+import { CategorySqliteService } from '../providers/category.service.sqlite';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -73,6 +74,7 @@ export const firebaseConfig  = {
   ],
   providers: [    
     ExpenseSqliteService,
+    CategorySqliteService,
     StatusBar,SplashScreen,
     SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

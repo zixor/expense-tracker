@@ -41,6 +41,25 @@
       <ion-label color="primary" stacked>Amount</ion-label>
       <ion-input type="number" [(ngModel)]="expense.amount" name="amount"></ion-input>
     </ion-item>
+
+    <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+              <button ion-fab color="" item-left style="box-shadow:none;">
+                <ion-icon name=""></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <ion-item item-center>
+                <ion-label color="primary" floating>Categoty</ion-label>
+                <ion-input type="text" name="name" required readonly></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
+
     <ion-item>
       <ion-label color="primary" stacked>Category</ion-label>
       <ion-select [(ngModel)]="expense.category" name="category" required>

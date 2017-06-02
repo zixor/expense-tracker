@@ -25,7 +25,7 @@ export class ExpenseSqliteService {
   createTable() {
     let sql = 'CREATE TABLE IF NOT EXISTS expense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, amount REAL, category TEXT, description TEXT)';
     this.sqlObject.executeSql(sql, {})
-      .then(() => console.log('Executed SQL'))
+      .then(() => console.log('SQL Expenses Initialized'))
       .catch(e => console.log(e));
 
   }
