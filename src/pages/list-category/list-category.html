@@ -25,8 +25,8 @@
       Categories
     </ion-list-header>
 
-    <ion-item-sliding *ngFor="let category of categories" (click)="editCategory(category);">
-      <ion-item>        
+    <ion-item-sliding *ngFor="let category of categories">
+      <ion-item (click)="editCategory(category);">        
         <button ion-fab color="{{category.color}}" item-left style="box-shadow:none;">
             <ion-icon name="{{category.icon}}"></ion-icon>
         </button>
@@ -34,8 +34,8 @@
         <p item-center style="margin-left:7%">{{category.description}}.</p>
       </ion-item>
       <ion-item-options>
-        <button ion-button color="danger" icon-left>
-          <ion-icon name="trash" (click)="onTrash(category);"></ion-icon>
+        <button ion-button color="danger" icon-left (click)="onTrash(category);">
+          <ion-icon name="trash" ></ion-icon>
           Delete
         </button>                
       </ion-item-options>

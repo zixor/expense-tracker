@@ -21,18 +21,19 @@
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-             <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
-              clear class="ScheduleDate">
+          <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+            clear class="ScheduleDate">
               <span>{{ localDate | date }}  
                   <button ion-fab color="add-item" item-left style="box-shadow:none;">
                     <ion-icon name="calendar"></ion-icon>
                   </button>
               </span>
-            </span>
+          </span>
         </ion-col>
-        <ion-col >         
+        <ion-col>
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="expense.date" name="date" required readonly></ion-input></ion-item>
+            <ion-input type="text" [(ngModel)]="expense.date" name="date" required readonly></ion-input>
+          </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -42,7 +43,7 @@
       <ion-input type="number" [(ngModel)]="expense.amount" name="amount"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <!--ion-item>
         <ion-grid>
           <ion-row>
             <ion-col col-3>
@@ -58,7 +59,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-    </ion-item>
+    </ion-item-->
 
     <ion-item>
       <ion-label color="primary" stacked>Category</ion-label>
@@ -68,9 +69,32 @@
         </ion-option>
       </ion-select>
     </ion-item>
+
     <ion-item>
       <ion-label color="primary" stacked>Description</ion-label>
       <ion-input type="text" [(ngModel)]="expense.description" name="description" required></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item item-center>
+              <button ion-button color="light" block (click)="takePicture();">
+                   <ion-icon name="camera"></ion-icon>       
+              </button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item item-center>
+              <button ion-button color="light" block (click)="choosePicture();">
+                <ion-icon name="ion-images"></ion-icon>        
+              </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
   </form>
 </ion-content>
