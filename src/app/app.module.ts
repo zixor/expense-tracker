@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { StatusBar } from '@ionic-native/status-bar';
 import { DatePickerModule } from 'datepicker-ionic2';
 import { SQLite } from '@ionic-native/sqlite';
@@ -76,7 +78,7 @@ export const firebaseConfig  = {
     ExpenseSqliteService,
     CategorySqliteService,
     StatusBar,SplashScreen,
-    SQLite,
+    SQLite, Camera, ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
     ],
   bootstrap: [IonicApp]
