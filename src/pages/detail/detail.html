@@ -75,26 +75,24 @@
       <ion-input type="text" [(ngModel)]="expense.description" name="description" required></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-item item-center>
-              <button ion-button color="light" block (click)="takePicture();">
-                   <ion-icon name="camera"></ion-icon>       
-              </button>
-            </ion-item>
-          </ion-col>
-          <ion-col>
-            <ion-item item-center>
-              <button ion-button color="light" block (click)="choosePicture();">
-                <ion-icon name="images"></ion-icon>        
-              </button>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+    <ion-item>            
+      <h3 [hidden]="lastImage !== null" color="primary">Here your Reciept!</h3>
+      <br>
+      <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
     </ion-item>
 
   </form>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="add-item" style="text-align: center;">
+    <ion-buttons>
+      <button ion-button icon-left (click)="presentActionSheet()">
+        <ion-icon name="camera"></ion-icon>Select Image
+      </button>
+      <!--button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+        <ion-icon name="cloud-upload"></ion-icon>Upload
+      </button-->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

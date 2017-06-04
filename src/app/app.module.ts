@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -32,14 +35,14 @@ import { Settings } from '../pages/settings/settings';
 
 
 
-export const firebaseConfig  = {
-    apiKey: "AIzaSyCysMWhsNmcuXjwInzIRau887uJ1eGjAm4",
-    authDomain: "weonsoft-pos.firebaseapp.com",
-    databaseURL: "https://weonsoft-pos.firebaseio.com",
-    projectId: "weonsoft-pos",
-    storageBucket: "weonsoft-pos.appspot.com",
-    messagingSenderId: "724728369366"
-  };
+export const firebaseConfig = {
+  apiKey: "AIzaSyCysMWhsNmcuXjwInzIRau887uJ1eGjAm4",
+  authDomain: "weonsoft-pos.firebaseapp.com",
+  databaseURL: "https://weonsoft-pos.firebaseio.com",
+  projectId: "weonsoft-pos",
+  storageBucket: "weonsoft-pos.appspot.com",
+  messagingSenderId: "724728369366"
+};
 
 @NgModule({
   imports: [
@@ -55,18 +58,6 @@ export const firebaseConfig  = {
     HomePage,
     Detail,
     Login,
-    Dashboard,   
-    Settings,
-    ListCategory,
-    Category,
-    ModalColors,
-    ModalIcons
-  ],    
-  entryComponents: [
-    MyApp,
-    HomePage,
-    Detail,
-    Login,    
     Dashboard,
     Settings,
     ListCategory,
@@ -74,13 +65,31 @@ export const firebaseConfig  = {
     ModalColors,
     ModalIcons
   ],
-  providers: [    
+  entryComponents: [
+    MyApp,
+    HomePage,
+    Detail,
+    Login,
+    Dashboard,
+    Settings,
+    ListCategory,
+    Category,
+    ModalColors,
+    ModalIcons
+  ],
+  providers: [
     ExpenseSqliteService,
     CategorySqliteService,
-    StatusBar,SplashScreen,
-    SQLite, Camera, ImagePicker,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-    ],
+    StatusBar,
+    SplashScreen,
+    SQLite,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
+    ImagePicker,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ],
   bootstrap: [IonicApp]
 })
-export class AppModule {}
+export class AppModule { }
