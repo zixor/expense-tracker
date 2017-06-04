@@ -22,9 +22,9 @@ export class ListCategory {
     private alertCtrl: AlertController) {
 
      this.categoryService.getAll().then(data => {
-      console.log(data);
       this.categories = data;
     });
+    
   }
 
   ionViewDidLoad() {

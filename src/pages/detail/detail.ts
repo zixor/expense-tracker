@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { NavController, NavParams, AlertController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import {
+  ModalController, NavController, NavParams,
+  AlertController, ActionSheetController, ToastController,
+  Platform, LoadingController, Loading
+} from 'ionic-angular';
 import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { Expense } from '../../app/expense.model';
 import * as moment from 'moment';
@@ -10,6 +14,9 @@ import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
+//Import modal page
+import { ModalCategory } from '../modal-category/modal-category';
+
 declare var cordova: any;
 
 @Component({
@@ -18,14 +25,16 @@ declare var cordova: any;
 })
 export class Detail {
 
-  private expense;
-  private categories: string[];
+  private expense: Expense;
   private pictures = [];
+  private category;
 
   private lastImage: string = null;
   private loading: Loading;
 
-  constructor(private navCtrl: NavController,
+  constructor(
+    private navCtrl: NavController,
+    private modalCtl: ModalController,
     private navParms: NavParams,
     private expenseService: ExpenseSqliteService,
     private alertCtrl: AlertController,
@@ -39,12 +48,18 @@ export class Detail {
     private platform: Platform,
     private loadingCtrl: LoadingController) {
 
-    this.categories = ['Food', 'Travel', 'Other'];
     this.expense = {
       date: '',
       amount: 0,
       category: '',
       description: ''
+    };
+
+     this.category = {
+      name:"",
+      description:"",
+      icon:"cube",
+      color:"add-item"
     };
 
     const expense = navParms.get('expense');
@@ -205,6 +220,20 @@ export class Detail {
         console.log('Image URI: ' + results[i]);
       }
     }, (err) => { });
+  }
+
+
+  openModalCategory() {
+
+    const modal = this.modalCtl.create(ModalCategory);
+    modal.present();
+
+    modal.onDidDismiss(category => {
+      console.log(category);
+      this.category = category;
+      this.expense.category = category.id;
+    });
+
   }
 
   public uploadImage() {

@@ -47,9 +47,7 @@ export class CategorySqliteService {
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let category = response.rows.item(index);
-            if (category !== undefined) {
-              //category.displayDate = moment(category.date).format("dddd, MMMM Do YYYY LT");
-              console.log(category);
+            if (category !== undefined) {              
               categorys.push(category);
             }
           }

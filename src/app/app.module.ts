@@ -26,6 +26,7 @@ import { ListCategory } from '../pages/list-category/list-category';
 import { Category } from '../pages/category/category';
 import { ModalColors } from '../pages/modal-colors/modal-colors';
 import { ModalIcons } from '../pages/modal-icons/modal-icons';
+import { ModalCategory } from '../pages/modal-category/modal-category';
 
 
 //Imports pages to Use
@@ -63,7 +64,8 @@ export const firebaseConfig = {
     ListCategory,
     Category,
     ModalColors,
-    ModalIcons
+    ModalIcons,
+    ModalCategory
   ],
   entryComponents: [
     MyApp,
@@ -75,7 +77,8 @@ export const firebaseConfig = {
     ListCategory,
     Category,
     ModalColors,
-    ModalIcons
+    ModalIcons,
+    ModalCategory
   ],
   providers: [
     ExpenseSqliteService,
