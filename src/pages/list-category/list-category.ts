@@ -19,12 +19,16 @@ export class ListCategory {
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
     private categoryService: CategorySqliteService,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController) {     
+    
+    this.loadData();
 
-     this.categoryService.getAll().then(data => {
+  }
+
+  loadData(){
+    this.categoryService.getAll().then(data => {
       this.categories = data;
     });
-    
   }
 
   ionViewDidLoad() {
@@ -52,7 +56,6 @@ export class ListCategory {
   }
 
   onTrash(category){
-    console.log("On trash category");
       let confirm = this.alertCtrl.create({
       title: 'Delete',
       message: `Are you sure you want to delete this category: "${category.description}"?`,
@@ -66,7 +69,7 @@ export class ListCategory {
           text: 'Confirm',
           handler: () => {
             this.categoryService.delete(category);
-            this.navCtrl.pop();
+            this.loadData();
           }
         }
       ]

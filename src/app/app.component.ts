@@ -49,7 +49,9 @@ export class MyApp {
       
       { title: 'Dashboard',     component: Dashboard, icon:'pulse' },
       { title: 'Category',      component: ListCategory,  icon:'cube' },
-      { title: 'Transactions',  component: HomePage, icon:'flash' },  
+      { title: 'Transactions',  component: HomePage, icon:'ion-arrow-graph-up-right' },  
+      { title: 'Budgets',       component: HomePage, icon:'card' },  
+      { title: 'Savings',       component: HomePage, icon:'cash' },  
       { title: 'Settings',      component: Settings, icon: 'hammer'} ,  
       { title: 'Log Out',       component: Login, icon: 'exit'} 
       

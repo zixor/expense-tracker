@@ -52,7 +52,8 @@ export class Detail {
       date: '',
       amount: 0,
       category: '',
-      description: ''
+      description: '',
+      incoming: false
     };
 
      this.category = {
@@ -65,6 +66,8 @@ export class Detail {
     const expense = navParms.get('expense');
     if (expense) {
       this.expense = expense;
+      this.lastImage = expense.image;
+      this.category  = expense.category;
     }
 
   }
@@ -126,7 +129,7 @@ export class Detail {
           .then(filePath => {
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());          
           });
       } else {
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
@@ -184,7 +187,10 @@ export class Detail {
     /*  let userProfile = JSON.parse(window.localStorage.getItem("userProfile"));
       this.expense.user = userProfile.username;
       this.expense.photoUrl = userProfile.photoUrl;*/
-    if (this.expense.id) {
+    console.log(this.expense);
+    this.expense.image = this.lastImage;
+    
+    if (this.expense.id) {    
       this.expenseService.update(this.expense);
     } else {
       this.expenseService.add(this.expense);

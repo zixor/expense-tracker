@@ -35,4 +35,8 @@ export class ModalCategory {
     this.viewCtl.dismiss(category);
   }
 
+  closeModal(){
+    this.viewCtl.dismiss();
+  }
+
 }

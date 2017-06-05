@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Expense } from '../app/expense.model';
-import * as moment from 'moment';
+import { CategorySqliteService } from './category.service.sqlite';
 
 
 @Injectable()
@@ -11,7 +11,8 @@ export class ExpenseSqliteService {
   private db: SQLite = null;
   private sqlObject: SQLiteObject;
 
-  constructor(private sqlite: SQLite) {
+  constructor(private sqlite: SQLite,
+  private categoryService: CategorySqliteService) {
     this.db = new SQLite();
   }
 
@@ -23,7 +24,7 @@ export class ExpenseSqliteService {
   }
 
   createTable() {
-    let sql = 'CREATE TABLE IF NOT EXISTS expense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, amount REAL, category TEXT, description TEXT)';
+    let sql = 'CREATE TABLE IF NOT EXISTS expense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, amount REAL, category TEXT, description TEXT, image TEXT, incoming TEXT)';
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Expenses Initialized'))
       .catch(e => console.log(e));
@@ -48,7 +49,9 @@ export class ExpenseSqliteService {
           for (let index = 0; index < response.rows.length; index++) {
             let expense = response.rows.item(index);
             if (expense !== undefined) {
-              //expense.displayDate = moment(expense.date).format("dddd, MMMM Do YYYY LT");
+               this.categoryService.getCategory(expense.category).then( data => {
+                    expense.category  = data;
+               });              
               expenses.push(expense);
             }
           }
@@ -59,17 +62,58 @@ export class ExpenseSqliteService {
 
   }
 
+  getExpenses(): number {
+
+    let expenses = 0;
+    let sql = "SELECT sum(amount) FROM expense where incoming = false ";
+
+    this.sqlObject.executeSql(sql, [])
+      .then(response => {
+        for (let index = 0; index < response.rows.length; index++) {
+          let expenses = response.rows.item(index);
+          if (expenses !== undefined) {
+            console.log(expenses);
+            expenses = expenses;
+          }
+        }
+
+      });
+
+    return expenses;
+
+  }
+
+  getIncomes(): number {
+
+    let incomes = 0;
+    let sql = "SELECT sum(amount) FROM expense where incoming = true ";
+
+    this.sqlObject.executeSql(sql, [])
+      .then(response => {
+        for (let index = 0; index < response.rows.length; index++) {
+          let incomes = response.rows.item(index);
+          if (incomes !== undefined) {
+            incomes = incomes;
+            console.log(incomes);
+          }
+        }
+
+      });
+    return incomes;
+
+  }
+
   update(expense: Expense) {
 
-    let sql = 'UPDATE expense SET date=?, amount=?, category=?, description=? WHERE id=?';
-    this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description]);
+    let sql = 'UPDATE expense SET date=?, amount=?, category=?, description=?, image = ?, incoming = ? WHERE id=?';
+    this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming]);
 
   }
 
   add(expense: Expense) {
     return new Promise((resolve, reject) => {
-      let sql = 'insert into expense ( date,amount,category, description ) values ( ?,?,?,? )';
-      this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description])
+      let sql = 'insert into expense ( date,amount,category, description, image, incoming ) values ( ?,?,?,?,?,? )';
+      this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming])
         .then(response => {
           resolve(response);
         })

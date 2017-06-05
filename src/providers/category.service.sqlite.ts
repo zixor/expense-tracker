@@ -47,11 +47,29 @@ export class CategorySqliteService {
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let category = response.rows.item(index);
-            if (category !== undefined) {              
+            if (category !== undefined) {
               categorys.push(category);
             }
           }
           resolve(categorys);
+        })
+        .catch(e => reject(e));
+    });
+
+  }
+
+  getCategory(categoryId): Promise<any> {
+
+    let category;
+    let sql = 'SELECT * FROM category where id = ?';
+
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [categoryId])
+        .then(response => {
+          for (let index = 0; index < response.rows.length; index++) {
+            category = response.rows.item(index);                 
+          }
+          resolve(category);
         })
         .catch(e => reject(e));
     });
@@ -69,7 +87,7 @@ export class CategorySqliteService {
     return new Promise((resolve, reject) => {
       let sql = 'insert into category ( name, description, icon, color ) values ( ?,?,?,? )';
       this.sqlObject.executeSql(sql, [category.name, category.description, category.icon, category.color])
-        .then(response => {         
+        .then(response => {
           resolve(response);
         })
         .catch(e => console.log(e));

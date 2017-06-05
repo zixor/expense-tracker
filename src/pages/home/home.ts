@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
-//import { Expense } from '../../app/expense.model';
 import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { Login } from '../login/login';
-//import { FirebaseListObservable  } from 'angularfire2/database';
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 
 @Component({
@@ -14,18 +12,43 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 export class HomePage {
 
   private expenses: any[] = [];
+
   private balance: number = 0;
+  private incomes: number = 0;
+  private amountExpenses: number = 0;
 
 
   constructor(private navCtrl: NavController,
     private expenseService: ExpenseSqliteService,
     private alertCtrl: AlertController
-  ) {    
-      this.findAll();
+  ) {
+
+    this.initializeForm();
+
   }
 
-  findAll(){
-    this.expenseService.getAll().then(data => {      
+  initializeForm() {
+    this.setBalance();
+    this.setExpenses();
+    this.setIncomes();
+    this.findAll();
+  }
+
+  setExpenses() {
+    this.amountExpenses = this.expenseService.getExpenses();
+  }
+
+  setIncomes() {
+    this.incomes = this.expenseService.getIncomes();
+  }
+
+  setBalance() {
+    this.balance = this.incomes - this.amountExpenses;
+  }
+
+  findAll() {
+    this.expenseService.getAll().then(data => {
+      console.log(data);
       this.expenses = data;
     });
   }
@@ -36,6 +59,7 @@ export class HomePage {
        }else{
          this.doRefresh(0);
      }*/
+    this.initializeForm();
   }
 
   onItemClick(expense) {
@@ -54,7 +78,7 @@ export class HomePage {
     */
 
     this.expenseService.getAll()
-      .then(data => { 
+      .then(data => {
         this.expenses = data;
         refresher.complete();
       })
@@ -70,9 +94,9 @@ export class HomePage {
     return user !== null;
   }
 
-  onTrash(expense){
+  onTrash(expense) {
     console.log("onTrash");
-      let confirm = this.alertCtrl.create({
+    let confirm = this.alertCtrl.create({
       title: 'Delete',
       message: `Are you sure you want to delete this expense: "${expense.description}"?`,
       buttons: [

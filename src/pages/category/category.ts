@@ -26,10 +26,15 @@ export class Category {
       icon:"help",
       color:"light"
     };
+
+    const category = navParams.get('category');
+    if (category) {
+      this.category = category;
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Category');
+    
   }
 
   onModalIcons(){

@@ -19,7 +19,7 @@
 
 
     <ion-grid>
-      <ion-row>
+      <ion-row> 
         <ion-col col-3>
           <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
             clear class="ScheduleDate">
@@ -29,12 +29,12 @@
                   </button>
               </span>
           </span>
-        </ion-col>
+        </ion-col>       
         <ion-col>
           <ion-item item-center>
             <ion-input type="text" [(ngModel)]="expense.date" name="date" required readonly></ion-input>
           </ion-item>
-        </ion-col>
+        </ion-col>        
       </ion-row>
     </ion-grid>
 
@@ -43,18 +43,23 @@
       <ion-input type="number" [(ngModel)]="expense.amount" name="amount"></ion-input>
     </ion-item>
 
+    <ion-item>
+    <ion-label color="primary" >Incoming</ion-label>
+    <ion-toggle color="add-item" [(ngModel)]="expense.incoming" name="incoming"></ion-toggle>
+  </ion-item>
+
     <ion-grid>
       <ion-row>
         <ion-col col-3>
           <button ion-fab color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
                 <ion-icon name="{{category.icon}}"></ion-icon>
               </button>
-        </ion-col>
+        </ion-col>        
         <ion-col>
           <ion-item item-center>
             <ion-input type="text" [(ngModel)]="category.name" name="category" required readonly></ion-input>
           </ion-item>
-        </ion-col>
+        </ion-col>        
       </ion-row>
     </ion-grid>
 
