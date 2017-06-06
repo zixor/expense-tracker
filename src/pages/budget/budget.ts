@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
-import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
+import { BudgetSqliteService } from '../../providers/budget.service.sqlite';
 import { CategorySqliteService } from '../../providers/category.service.sqlite';
 import { Login } from '../login/login';
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
+import { BudgetModel } from '../../models/budget.model';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-budget',
+  templateUrl: 'budget.html'
 })
-export class HomePage {
+export class Budget {
 
   private expenses: any[] = [];
 
@@ -20,7 +21,7 @@ export class HomePage {
 
 
   constructor(private navCtrl: NavController,
-    private expenseService: ExpenseSqliteService,
+    private budgetService: BudgetSqliteService,
     private categoryService: CategorySqliteService,
     private alertCtrl: AlertController
   ) {
@@ -50,10 +51,10 @@ export class HomePage {
 
   findAll() {
     let arrExpenses = [];
-    this.expenseService.getAll().then(data => {
-      if (data) {
-        data.forEach(expense => {
-          this.categoryService.getCategory(expense.category.id).then(category => {
+    this.budgetService.getAll().then(budget => {
+      if (budget) {
+        budget.forEach(expense => {
+          this.categoryService.getCategory(budget.category).then(category => {
             expense.category = category;
             arrExpenses.push(expense);
           });
@@ -86,8 +87,8 @@ export class HomePage {
       }
     });  
     */
-
-    this.expenseService.getAll()
+//TODO fix in expense also
+    this.budgetService.getAll()
       .then(data => {
         this.expenses = data;
         refresher.complete();
@@ -99,16 +100,12 @@ export class HomePage {
     this.navCtrl.push(Detail);
   }
 
-  isUserAlreadyLoggedIn() {
-    let user = window.localStorage.getItem('userProfile');
-    return user !== null;
-  }
 
-  onTrash(expense) {
+  onTrash(budget:BudgetModel) {
     console.log("onTrash");
     let confirm = this.alertCtrl.create({
       title: 'Delete',
-      message: `Are you sure you want to delete this expense: "${expense.description}"?`,
+      message: `Are you sure you want to delete this budget ?`,
       buttons: [
         {
           text: 'Cancel',
@@ -118,7 +115,7 @@ export class HomePage {
         {
           text: 'Confirm',
           handler: () => {
-            this.expenseService.delete(expense);
+            this.budgetService.delete(budget);
             this.findAll();
           }
         }

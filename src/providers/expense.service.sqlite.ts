@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Expense } from '../app/expense.model';
-import { CategorySqliteService } from './category.service.sqlite';
 
 
 @Injectable()
@@ -11,8 +10,7 @@ export class ExpenseSqliteService {
   private db: SQLite = null;
   private sqlObject: SQLiteObject;
 
-  constructor(private sqlite: SQLite,
-  private categoryService: CategorySqliteService) {
+  constructor(private sqlite: SQLite) {
     this.db = new SQLite();
   }
 
@@ -48,10 +46,7 @@ export class ExpenseSqliteService {
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let expense = response.rows.item(index);
-            if (expense !== undefined) {
-               this.categoryService.getCategory(expense.category).then( data => {
-                    expense.category  = data;
-               });              
+            if (expense !== undefined) {                          
               expenses.push(expense);
             }
           }
@@ -106,7 +101,7 @@ export class ExpenseSqliteService {
   update(expense: Expense) {
 
     let sql = 'UPDATE expense SET date=?, amount=?, category=?, description=?, image = ?, incoming = ? WHERE id=?';
-    this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming]);
+    this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming, expense.id]);
 
   }
 

@@ -8,6 +8,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { StatusBar } from '@ionic-native/status-bar';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { DatePickerModule } from 'datepicker-ionic2';
 import { SQLite } from '@ionic-native/sqlite';
 
@@ -65,7 +66,8 @@ export const firebaseConfig = {
     Category,
     ModalColors,
     ModalIcons,
-    ModalCategory
+    ModalCategory,
+    ProgressBarComponent
   ],
   entryComponents: [
     MyApp,

@@ -48,6 +48,25 @@ export class Detail {
     private platform: Platform,
     private loadingCtrl: LoadingController) {
 
+
+    const expense = navParms.get('expense');
+
+    if (expense) {
+
+      this.expense = expense;
+      this.lastImage = expense.image;
+      this.category = expense.category;
+
+    } else {
+
+      this.initExpense();
+      this.initCategory();
+
+    }
+
+  }
+
+  private initExpense() {
     this.expense = {
       date: '',
       amount: 0,
@@ -55,21 +74,15 @@ export class Detail {
       description: '',
       incoming: false
     };
+  }
 
-     this.category = {
-      name:"",
-      description:"",
-      icon:"cube",
-      color:"add-item"
+  private initCategory() {
+    this.category = {
+      name: "",
+      description: "",
+      icon: "cube",
+      color: "add-item"
     };
-
-    const expense = navParms.get('expense');
-    if (expense) {
-      this.expense = expense;
-      this.lastImage = expense.image;
-      this.category  = expense.category;
-    }
-
   }
 
   private options: CameraOptions = {
@@ -129,7 +142,7 @@ export class Detail {
           .then(filePath => {
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());          
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       } else {
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
@@ -189,8 +202,8 @@ export class Detail {
       this.expense.photoUrl = userProfile.photoUrl;*/
     console.log(this.expense);
     this.expense.image = this.lastImage;
-    
-    if (this.expense.id) {    
+
+    if (this.expense.id) {
       this.expenseService.update(this.expense);
     } else {
       this.expenseService.add(this.expense);

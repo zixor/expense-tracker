@@ -79,7 +79,7 @@ export class CategorySqliteService {
   update(category: CategoryModel) {
 
     let sql = 'UPDATE category SET name = ?, description = ?, icon = ?, color = ? WHERE id=?';
-    this.sqlObject.executeSql(sql, [category.name, category.description, category.icon, category.color]);
+    this.sqlObject.executeSql(sql, [category.name, category.description, category.icon, category.color, category.id]);
 
   }
 
