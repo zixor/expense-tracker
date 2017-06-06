@@ -3,56 +3,81 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title style="text-align:center;">
-      Budgets
-    </ion-title>
+    <ion-title style="text-align:center;"> Budget </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
-          <ion-icon name="pulse"></ion-icon>
+      <button ion-button icon-only (click)="onTrash()" *ngIf="budget.id">
+          <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
+          <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
+<ion-content padding>
+  <form #f="ngForm">
 
-<ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <button ion-fab color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
+                <ion-icon name="{{category.icon}}"></ion-icon>
+              </button>
+        </ion-col>
+        <ion-col>
+          <ion-item item-center>
+            <ion-input type="text" [(ngModel)]="category.name" name="category" required readonly></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-refresher (ionRefresh)="doRefresh($event);" class="refresher">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
 
-  <ion-card *ngFor="let budget of budgets">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+            clear class="ScheduleDate">
+              <span>{{ localDate | date }}  
+                  <button ion-fab color="add-item" item-left style="box-shadow:none;">
+                    <ion-icon name="calendar"></ion-icon>
+                  </button>
+              </span>
+          </span>
+        </ion-col>
+        <ion-col>
+          <ion-item item-center>
+            <ion-input type="text" [(ngModel)]="budget.date" name="date" required readonly></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+            clear class="ScheduleDate">
+              <span>{{ localDate | date }}  
+                  <button ion-fab color="add-item" item-left style="box-shadow:none;">
+                    <ion-icon name="calendar"></ion-icon>
+                  </button>
+              </span>
+          </span>
+        </ion-col>
+        <ion-col>
+          <ion-item item-center>
+            <ion-input type="text" [(ngModel)]="budget.date" name="date" required readonly></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
     <ion-item>
-      <button item-start ion-fab color="{{budget.category.color}}" item-left style="box-shadow:none;">
-          <ion-icon name="{{budget.category.icon}}"></ion-icon>
-      </button>
-      <h2> {{budget.category.name}} </h2>
-      <p> {{budget.rangedate | date}} </p>
+      <ion-label color="primary" stacked>Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="budget.amount" name="amount"></ion-input>
     </ion-item>
 
-    <ion-row>
-      <ion-col>
-        <p>Left</p>
-      </ion-col>
-      <ion-col>
-        <p>{{budget.amount}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col center text-center>
-        <ion-note>
-          <p>Here percent!</p>
-        </ion-note>
-      </ion-col>
-    </ion-row>
 
-  </ion-card>
-
-  <br>
-  <ion-fab right bottom>
-    <button ion-fab color="add-item" (click)="onAddClick()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
+  </form>
 </ion-content>

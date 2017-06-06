@@ -13,64 +13,19 @@ import { BudgetModel } from '../../models/budget.model';
 })
 export class Budget {
 
-  private expenses: any[] = [];
-
-  private balance: number = 0;
-  private incomes: number = 0;
-  private amountExpenses: number = 0;
-
-
   constructor(private navCtrl: NavController,
     private budgetService: BudgetSqliteService,
     private categoryService: CategorySqliteService,
     private alertCtrl: AlertController
   ) {
 
-    this.initializeForm();
 
   }
 
-  initializeForm() {
-    this.setBalance();
-    this.setExpenses();
-    this.setIncomes();
-    this.findAll();
-  }
-
-  setExpenses() {
-    this.amountExpenses = this.expenseService.getExpenses();
-  }
-
-  setIncomes() {
-    this.incomes = this.expenseService.getIncomes();
-  }
-
-  setBalance() {
-    this.balance = this.incomes - this.amountExpenses;
-  }
-
-  findAll() {
-    let arrExpenses = [];
-    this.budgetService.getAll().then(budget => {
-      if (budget) {
-        budget.forEach(expense => {
-          this.categoryService.getCategory(budget.category).then(category => {
-            expense.category = category;
-            arrExpenses.push(expense);
-          });
-        });
-      }
-      this.expenses = arrExpenses;
-    });
-  }
 
   ionViewWillEnter() {
-    /* if(!this.isUserAlreadyLoggedIn()) {
-             this.navCtrl.push(Login);
-       }else{
-         this.doRefresh(0);
-     }*/
-    this.initializeForm();
+ 
+
   }
 
   onItemClick(expense) {
@@ -80,20 +35,7 @@ export class Budget {
   }
 
   doRefresh(refresher) {
-    /* this.expenseService.expenses.subscribe(data=>{
-      this.expenses = data;
-      if(refresher != 0){
-        refresher.complete();
-      }
-    });  
-    */
-//TODO fix in expense also
-    this.budgetService.getAll()
-      .then(data => {
-        this.expenses = data;
-        refresher.complete();
-      })
-      .catch(e => console.log(e));
+   
   }
 
   onAddClick() {
@@ -116,7 +58,7 @@ export class Budget {
           text: 'Confirm',
           handler: () => {
             this.budgetService.delete(budget);
-            this.findAll();
+            
           }
         }
       ]
