@@ -34,7 +34,7 @@ export class Category {
   }
 
   ionViewDidLoad() {
-    
+
   }
 
   onModalIcons(){

@@ -30,18 +30,23 @@ export class HomePage {
   }
 
   initializeForm() {
-    this.setBalance();
     this.setExpenses();
     this.setIncomes();
     this.findAll();
   }
 
   setExpenses() {
-    this.amountExpenses = this.expenseService.getExpenses();
+    this.expenseService.getExpenses().then(data => {
+      this.amountExpenses = data;
+      this.setBalance();
+    });
   }
 
   setIncomes() {
-    this.incomes = this.expenseService.getIncomes();
+    this.expenseService.getIncomes().then(data => {
+      this.incomes = data;
+      this.setBalance();
+    });
   }
 
   setBalance() {
@@ -50,16 +55,19 @@ export class HomePage {
 
   findAll() {
     let arrExpenses = [];
-    this.expenseService.getAll().then(data => {
-      if (data) {
-        data.forEach(expense => {
-          this.categoryService.getCategory(expense.category.id).then(category => {
-            expense.category = category;
-            arrExpenses.push(expense);
+    return new Promise((resolve, reject) => {
+      this.expenseService.getAll().then(data => {
+        if (data) {
+          data.forEach(expense => {
+            this.categoryService.getCategory(expense.category).then(category => {
+              expense.category = category;
+              arrExpenses.push(expense);
+            });
           });
-        });
-      }
-      this.expenses = arrExpenses;
+          this.expenses = arrExpenses;
+          resolve(true);
+        }
+      }).catch(e => reject(e));
     });
   }
 
@@ -68,7 +76,7 @@ export class HomePage {
              this.navCtrl.push(Login);
        }else{
          this.doRefresh(0);
-     }*/
+     }*/    
     this.initializeForm();
   }
 
@@ -86,13 +94,15 @@ export class HomePage {
       }
     });  
     */
-
-    this.expenseService.getAll()
-      .then(data => {
-        this.expenses = data;
+    this.findAll().then(data => {
+      if (data) {
+        this.setExpenses();
+        this.setIncomes();
+        this.setBalance();
         refresher.complete();
-      })
-      .catch(e => console.log(e));
+      }
+    });
+
   }
 
   onAddClick() {

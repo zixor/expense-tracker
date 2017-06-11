@@ -46,7 +46,7 @@ export class ExpenseSqliteService {
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let expense = response.rows.item(index);
-            if (expense !== undefined) {                          
+            if (expense !== undefined) {
               expenses.push(expense);
             }
           }
@@ -57,44 +57,41 @@ export class ExpenseSqliteService {
 
   }
 
-  getExpenses(): number {
+  getExpenses(): Promise<any> {
 
     let expenses = 0;
-    let sql = "SELECT sum(amount) FROM expense where incoming = false ";
+    let sql = "SELECT sum(amount) as sum FROM expense where incoming = 'false' ";
 
-    this.sqlObject.executeSql(sql, [])
-      .then(response => {
-        for (let index = 0; index < response.rows.length; index++) {
-          let expenses = response.rows.item(index);
-          if (expenses !== undefined) {
-            console.log(expenses);
-            expenses = expenses;
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [])
+        .then(response => {
+          let data = response.rows.item(0);
+          if(data.sum){
+            expenses = data.sum;
           }
-        }
-
-      });
-
-    return expenses;
+          resolve(expenses);
+        })
+        .catch(e => reject(e));
+    });
 
   }
 
-  getIncomes(): number {
+  getIncomes():  Promise<any> {
 
     let incomes = 0;
-    let sql = "SELECT sum(amount) FROM expense where incoming = true ";
+    let sql = "SELECT sum(amount) as sum FROM expense where incoming = 'true' ";
 
-    this.sqlObject.executeSql(sql, [])
-      .then(response => {
-        for (let index = 0; index < response.rows.length; index++) {
-          let incomes = response.rows.item(index);
-          if (incomes !== undefined) {
-            incomes = incomes;
-            console.log(incomes);
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [])
+        .then(response => {
+          let data = response.rows.item(0);
+           if(data.sum){
+            incomes = data.sum;
           }
-        }
-
-      });
-    return incomes;
+          resolve(incomes);
+        })
+        .catch(e => reject(e));
+    });
 
   }
 

@@ -31,8 +31,8 @@ export class ListCategory {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListCategory');
+  ionViewDidLoad(){
+    this.loadData();
   }
 
   onAddClick() {

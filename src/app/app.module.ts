@@ -14,6 +14,7 @@ import { SQLite } from '@ionic-native/sqlite';
 
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 import { CategorySqliteService } from '../providers/category.service.sqlite';
+import { BudgetSqliteService } from '../providers/budget.service.sqlite';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -28,6 +29,8 @@ import { Category } from '../pages/category/category';
 import { ModalColors } from '../pages/modal-colors/modal-colors';
 import { ModalIcons } from '../pages/modal-icons/modal-icons';
 import { ModalCategory } from '../pages/modal-category/modal-category';
+import { ListBudget } from '../pages/list-budget/list-budget';
+import { Budget } from '../pages/budget/budget';
 
 
 //Imports pages to Use
@@ -85,6 +88,7 @@ export const firebaseConfig = {
   providers: [
     ExpenseSqliteService,
     CategorySqliteService,
+    BudgetSqliteService,
     StatusBar,
     SplashScreen,
     SQLite,

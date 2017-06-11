@@ -8,12 +8,14 @@ import { HomePage } from '../pages/home/home';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
 import { Login } from '../pages/login/login';
+import { ListBudget } from '../pages/list-budget/list-budget';
 import { ListCategory } from '../pages/list-category/list-category';
 import { UserProfile } from "./user-profile.model";
 
 //imports services
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 import { CategorySqliteService } from '../providers/category.service.sqlite';
+import { BudgetSqliteService } from '../providers/budget.service.sqlite';
 
 
 @Component({
@@ -33,7 +35,8 @@ export class MyApp {
               public splashScreen: SplashScreen,
               public events: Events,
               private sqlService: ExpenseSqliteService,
-              private categorySqlService: CategorySqliteService ) {
+              private categorySqlService: CategorySqliteService,
+              private budgetSqlService: BudgetSqliteService ) {
 
     this.initializeApp();
 
@@ -47,10 +50,10 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       
-      { title: 'Dashboard',     component: Dashboard, icon:'pulse' },
+      { title: 'Dashboard',     component: Dashboard, icon:'analytics' },
       { title: 'Category',      component: ListCategory,  icon:'cube' },
-      { title: 'Transactions',  component: HomePage, icon:'ion-arrow-graph-up-right' },  
-      { title: 'Budgets',       component: HomePage, icon:'card' },  
+      { title: 'Transactions',  component: HomePage, icon:'pulse' },  
+      { title: 'Budgets',       component: ListBudget, icon:'card' },  
       { title: 'Savings',       component: HomePage, icon:'cash' },  
       { title: 'Settings',      component: Settings, icon: 'hammer'} ,  
       { title: 'Log Out',       component: Login, icon: 'exit'} 
@@ -73,6 +76,7 @@ export class MyApp {
       this.splashScreen.hide();
       this.sqlService.openDataBase();
       this.categorySqlService.openDataBase();
+      this.budgetSqlService.openDataBase();
     });
   }
 

@@ -51,13 +51,13 @@
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <button ion-fab color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
-                <ion-icon name="{{category.icon}}"></ion-icon>
+          <button ion-fab  *ngIf="category" color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
+                <ion-icon *ngIf="category" name="{{category.icon}}"></ion-icon>
               </button>
         </ion-col>        
         <ion-col>
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="category.name" name="category" required readonly></ion-input>
+            <ion-input type="text" *ngIf="category" [(ngModel)]="category.name" name="category" required readonly></ion-input>
           </ion-item>
         </ion-col>        
       </ion-row>
@@ -65,7 +65,7 @@
 
     <ion-item>
       <ion-label color="primary" stacked>Description</ion-label>
-      <ion-input type="text" [(ngModel)]="expense.description" name="description" required></ion-input>
+      <ion-input type="text"  [(ngModel)]="expense.description" name="description" required></ion-input>
     </ion-item>
 
     <ion-item>

@@ -67,8 +67,9 @@ export class Detail {
   }
 
   private initExpense() {
+    
     this.expense = {
-      date: '',
+      date:  moment().format("YYYY-MM-DD"),
       amount: 0,
       category: '',
       description: '',
