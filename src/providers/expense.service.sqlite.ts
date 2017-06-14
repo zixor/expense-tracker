@@ -66,7 +66,7 @@ export class ExpenseSqliteService {
       this.sqlObject.executeSql(sql, [])
         .then(response => {
           let data = response.rows.item(0);
-          if(data.sum){
+          if (data.sum) {
             expenses = data.sum;
           }
           resolve(expenses);
@@ -76,7 +76,32 @@ export class ExpenseSqliteService {
 
   }
 
-  getIncomes():  Promise<any> {
+  getExpensesGroupByCategory(): Promise<any> {
+
+    let data = [];
+    let sql = " SELECT sum(e.amount) amount, c.name category, c.icon icon, c.color color " +
+      " FROM expense e, category c " +
+      " where  e.category = c.id  " +
+      " and e.incoming = 'false' " +
+      " GROUP BY category "
+
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [])
+        .then(response => {
+          for (let index = 0; index < response.rows.length; index++) {
+            let record = response.rows.item(index);
+            if (record) {
+              data.push(record);
+            }
+          }
+          resolve(data);
+        })
+        .catch(e => reject(e));
+    });
+
+  }
+
+  getIncomes(): Promise<any> {
 
     let incomes = 0;
     let sql = "SELECT sum(amount) as sum FROM expense where incoming = 'true' ";
@@ -85,7 +110,7 @@ export class ExpenseSqliteService {
       this.sqlObject.executeSql(sql, [])
         .then(response => {
           let data = response.rows.item(0);
-           if(data.sum){
+          if (data.sum) {
             incomes = data.sum;
           }
           resolve(incomes);

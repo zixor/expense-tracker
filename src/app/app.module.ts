@@ -15,6 +15,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 import { CategorySqliteService } from '../providers/category.service.sqlite';
 import { BudgetSqliteService } from '../providers/budget.service.sqlite';
+import { UtilitiesService } from '../providers/utilities.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -89,6 +90,7 @@ export const firebaseConfig = {
     ExpenseSqliteService,
     CategorySqliteService,
     BudgetSqliteService,
+    UtilitiesService,
     StatusBar,
     SplashScreen,
     SQLite,
