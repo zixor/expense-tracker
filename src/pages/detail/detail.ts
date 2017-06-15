@@ -25,7 +25,7 @@ declare var cordova: any;
 })
 export class Detail {
 
-  private expense: Expense;
+  private expense: any;
   private pictures = [];
   private category;
 
@@ -195,19 +195,18 @@ export class Detail {
     this.expense.date = moment(date).format("YYYY-MM-DD");
   }
 
-
-
   onSave() {
-    /*  let userProfile = JSON.parse(window.localStorage.getItem("userProfile"));
-      this.expense.user = userProfile.username;
-      this.expense.photoUrl = userProfile.photoUrl;*/
-    console.log(this.expense);
-    this.expense.image = this.lastImage;
 
     if (this.expense.id) {
+
+      this.expense.image = this.lastImage;
+      this.expense.category = this.expense.category.id;
       this.expenseService.update(this.expense);
+
     } else {
+
       this.expenseService.add(this.expense);
+
     }
     this.navCtrl.pop();
   }

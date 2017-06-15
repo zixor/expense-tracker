@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, NavParams, AlertController} from 'ionic-angular';
+import { ModalController, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CategoryModel } from '../../app/category.model';
 import { ModalColors } from '../modal-colors/modal-colors';
 import { ModalIcons } from '../modal-icons/modal-icons';
@@ -14,17 +14,17 @@ import { CategorySqliteService } from '../../providers/category.service.sqlite';
 })
 export class Category {
 
-  private category:CategoryModel;
-  constructor(private navCtrl: NavController, 
-              private navParams: NavParams,
-              private modalCtl: ModalController,
-              private categoryService: CategorySqliteService,
-              private alertCtrl: AlertController) {
+  private category: CategoryModel;
+  constructor(private navCtrl: NavController,
+    private navParams: NavParams,
+    private modalCtl: ModalController,
+    private categoryService: CategorySqliteService,
+    private alertCtrl: AlertController) {
     this.category = {
-      name:"",
-      description:"",
-      icon:"help",
-      color:"light"
+      name: "",
+      description: "",
+      icon: "help",
+      color: "light"
     };
 
     const category = navParams.get('category');
@@ -37,23 +37,27 @@ export class Category {
 
   }
 
-  onModalIcons(){
+  onModalIcons() {
 
     const modal = this.modalCtl.create(ModalIcons);
     modal.present();
 
     modal.onDidDismiss(iconName => {
+      if (iconName) {
         this.category.icon = iconName;
+      }
     });
 
   }
 
-  openModalColors(){
+  openModalColors() {
     const modal = this.modalCtl.create(ModalColors);
     modal.present();
 
     modal.onDidDismiss(color => {
+      if (color) {
         this.category.color = color;
+      }
     });
   }
 

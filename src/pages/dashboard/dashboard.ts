@@ -44,10 +44,9 @@ export class Dashboard {
       if (response) {
         response.forEach(report => {
 
-          this.labels.push(report.category);
+          this.labels.push(report.category);         
           this.data.push(report.amount);
-
-          console.log(this.colors);
+         
           this.borderColor.push(this.colors[report.color]);
           this.backgroundColor.push(this.colors[report.color]);
 

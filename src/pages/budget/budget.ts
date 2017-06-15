@@ -27,12 +27,22 @@ export class Budget {
   ) {
 
     var date = new Date();
+    let firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     let lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
-    this.budget.initialDate = date.setDate(1).toString();
-    this.budget.finalDate = new Date(lastDayCurrentMonth).toString();
-    this.budget.amount = 0;
-    this.budget.category = "";
 
+    this.budget = {
+      initialDate: firstDayCurrentMonth.toString(),
+      finalDate: new Date(lastDayCurrentMonth).toString(),
+      amount: 0,
+      category: ""
+    }
+
+    this.category = {
+      name: "",
+      description: "",
+      icon: "help",
+      color: "light"
+    };
   }
 
 
@@ -45,7 +55,7 @@ export class Budget {
     this.navCtrl.push(Detail, {
       expense: expense
     });
-  } 
+  }
 
   onAddClick() {
     this.navCtrl.push(Detail);
