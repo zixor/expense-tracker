@@ -7,6 +7,7 @@ import { Login } from '../login/login';
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 import { BudgetModel } from '../../models/budget.model';
 import { CategoryModel } from '../../models/category.model';
+import { Calculator } from '../calculator/calculator';
 
 import { ModalCategory } from '../modal-category/modal-category';
 
@@ -101,6 +102,18 @@ export class Budget {
       ]
     });
     confirm.present();
+  }
+
+  openCalc(){
+
+    const modal = this.modalCtl.create(Calculator);
+    modal.present();
+
+    modal.onDidDismiss(value => {
+      if (value) {
+        this.budget.amount = value;
+      }
+    });
   }
 
 

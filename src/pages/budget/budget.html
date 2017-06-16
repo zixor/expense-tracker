@@ -73,10 +73,20 @@
       </ion-row>
     </ion-grid>
 
-    <ion-item>
-      <ion-label color="primary" stacked>Amount</ion-label>
-      <ion-input type="number" [(ngModel)]="budget.amount" name="amount"></ion-input>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <button ion-fab color="add-item" item-left style="box-shadow:none;" (click)="openCalc();">
+                    <ion-icon name="ion-social-usd"></ion-icon>
+                  </button>
+        </ion-col>
+        <ion-col>
+          <ion-item item-center>
+           <ion-input type="number" [(ngModel)]="budget.amount" name="amount"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
   </form>
