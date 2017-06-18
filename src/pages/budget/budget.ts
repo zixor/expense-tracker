@@ -10,6 +10,7 @@ import { CategoryModel } from '../../models/category.model';
 import { Calculator } from '../calculator/calculator';
 
 import { ModalCategory } from '../modal-category/modal-category';
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-budget',
@@ -30,10 +31,10 @@ export class Budget {
     var date = new Date();
     let firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     let lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
-
+    
     this.budget = {
-      initialDate: firstDayCurrentMonth.toString(),
-      finalDate: new Date(lastDayCurrentMonth).toString(),
+      initialDate: moment(firstDayCurrentMonth.toString()).format("YYYY-MM-DD"),
+      finalDate: moment(new Date(lastDayCurrentMonth).toString()).format("YYYY-MM-DD"),
       amount: 0,
       category: ""
     }
@@ -104,7 +105,7 @@ export class Budget {
     confirm.present();
   }
 
-  openCalc(){
+  openCalc() {
 
     const modal = this.modalCtl.create(Calculator);
     modal.present();
@@ -114,6 +115,14 @@ export class Budget {
         this.budget.amount = value;
       }
     });
+  }
+
+  setInitialDate(date) {
+    this.budget.initialDate = moment(date).format("YYYY-MM-DD");
+  }
+
+  setFinalDate(date) {
+    this.budget.finalDate = moment(date).format("YYYY-MM-DD");
   }
 
 

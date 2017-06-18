@@ -26,7 +26,7 @@
         </ion-col>
         <ion-col>
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="category.name" name="category" required readonly></ion-input>
+            <ion-input type="text" [(ngModel)]="category.name" name="category" placeholder="Choose Category" required readonly></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -36,7 +36,7 @@
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+          <span ion-datepicker (ionChanged)="setInitialDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
             clear class="ScheduleDate">
               <span>{{ localDate | date }}  
                   <button ion-fab color="add-item" item-left style="box-shadow:none;">
@@ -47,7 +47,7 @@
         </ion-col>
         <ion-col>
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="budget.initialDate" name="date" required readonly></ion-input>
+            <ion-input type="text" [(ngModel)]="budget.initialDate" name="initialDate"  placeholder="Choose Initial Date" required readonly></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -56,7 +56,7 @@
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+          <span ion-datepicker (ionChanged)="setFinalDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
             clear class="ScheduleDate">
               <span>{{ localDate | date }}  
                   <button ion-fab color="add-item" item-left style="box-shadow:none;">
@@ -67,7 +67,7 @@
         </ion-col>
         <ion-col>
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="budget.finalDate" name="date" required readonly></ion-input>
+            <ion-input type="text" [(ngModel)]="budget.finalDate" name="finalDate" placeholder="Choose Final Date" required readonly></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -77,12 +77,12 @@
       <ion-row>
         <ion-col col-3>
           <button ion-fab color="add-item" item-left style="box-shadow:none;" (click)="openCalc();">
-                    <ion-icon name="ion-social-usd"></ion-icon>
+                    <ion-icon name="cash"></ion-icon>
                   </button>
         </ion-col>
         <ion-col>
-          <ion-item item-center>
-           <ion-input type="number" [(ngModel)]="budget.amount" name="amount"></ion-input>
+          <ion-item item-right>
+              <p>{{ budget.amount | currency : 'USD': true }}</p>
           </ion-item>
         </ion-col>
       </ion-row>
