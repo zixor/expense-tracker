@@ -39,15 +39,16 @@ export class BudgetSqliteService {
   getAll(): Promise<any> {
 
     let budgets = [];
-    let sql = 'SELECT * FROM budget';
+
+    let sql = "select * from budget";
 
     return new Promise((resolve, reject) => {
       this.sqlObject.executeSql(sql, [])
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
-            let budget = response.rows.item(index);
-            if (budget !== undefined) {                          
-              budgets.push(budget);
+            let record = response.rows.item(index);
+            if (record) {
+              budgets.push(record);
             }
           }
           resolve(budgets);
@@ -57,7 +58,7 @@ export class BudgetSqliteService {
 
   }
 
-  
+
   update(budget: BudgetModel) {
 
     let sql = 'UPDATE budget SET initialDate = ?, finalDate = ?, amount= ?, category = ? WHERE id=?';

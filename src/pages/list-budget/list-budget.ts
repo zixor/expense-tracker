@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { Budget } from '../budget/budget';
 import { BudgetSqliteService } from '../../providers/budget.service.sqlite';
 import { CategorySqliteService } from '../../providers/category.service.sqlite';
+import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { BudgetModel } from '../../models/budget.model';
 
 @Component({
@@ -12,35 +13,43 @@ import { BudgetModel } from '../../models/budget.model';
 export class ListBudget {
 
   private budgets: any[] = [];
-  private loadProgress:number = 20;
-  
+
   constructor(private navCtrl: NavController,
     private budgetService: BudgetSqliteService,
     private categoryService: CategorySqliteService,
+    private expenseService: ExpenseSqliteService,
     private alertCtrl: AlertController
   ) {
-   
+
 
   }
 
 
   findAll() {
     let arrBudgets = [];
-    this.budgetService.getAll().then(budget => {
-      if (budget) {
-        budget.forEach(expense => {
-          this.categoryService.getCategory(budget.category).then(category => {
-            expense.category = category;
-            arrBudgets.push(expense);
-          });
+    this.budgetService.getAll().then(data => {
+      if (data) {
+        data.forEach(budget => {
+          let expenseAmount = 0;
+          this.categoryService.getCategory(budget.category)
+            .then(data => {
+              budget.category = data;
+              this.expenseService.getExpenseByRangeDate(budget.category.id, budget.initialDate, budget.finalDate)
+                .then(data => {
+                  budget.executed = data;
+                  budget.percent = ((data / budget.amount) * 100).toString().substr(0, 5);
+                });
+            });
+          arrBudgets.push(budget);
         });
       }
       this.budgets = arrBudgets;
     });
+    console.log(this.budgets);
   }
 
-  ionViewWillEnter() {   
-     this.findAll();
+  ionViewWillEnter() {
+    this.findAll();
   }
 
   onItemClick(budget) {
@@ -50,10 +59,25 @@ export class ListBudget {
   }
 
   doRefresh(refresher) {
-
+    let arrBudget = [];
     this.budgetService.getAll()
       .then(data => {
-        this.budgets = data;
+        if (data) {
+          data.forEach(budget => {
+            let expenseAmount = 0;
+            this.categoryService.getCategory(budget.category)
+              .then(data => {
+                budget.category = data;
+                this.expenseService.getExpenseByRangeDate(budget.category.id, budget.initialDate, budget.finalDate)
+                  .then(data => {
+                    budget.executed = data;
+                    budget.percent = ((data / budget.amount) * 100).toString().substr(0, 5);
+                  });
+              });
+            arrBudget.push(budget);
+          });
+        }
+        this.budgets = arrBudget;
         refresher.complete();
       })
       .catch(e => console.log(e));
@@ -65,7 +89,7 @@ export class ListBudget {
   }
 
 
-  onTrash(budget:BudgetModel) {
+  onTrash(budget: BudgetModel) {
     console.log("onTrash");
     let confirm = this.alertCtrl.create({
       title: 'Delete',

@@ -33,22 +33,23 @@
 
     <ion-row>
       <ion-col>
-        <p>Left</p>
+        <p>Budget</p>
       </ion-col>
       <ion-col>
-        <p>{{budget.amount}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col center text-center>
-        <ion-note>
-          <p>Here percent!</p>          
-        </ion-note>
+        <p>{{ budget.amount | currency : 'USD': true }}</p>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <progress-bar [progress]="loadProgress"></progress-bar>
+        <p>Executed</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ budget.executed | currency : 'USD': true }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <progress-bar [progress]="budget.percent"></progress-bar>
       </ion-col>
     </ion-row>
 

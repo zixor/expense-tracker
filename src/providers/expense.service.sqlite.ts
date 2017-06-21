@@ -76,6 +76,29 @@ export class ExpenseSqliteService {
 
   }
 
+  getExpenseByRangeDate(categoryId, initialDate, finalDate): Promise<any> {
+    let amount = 0;
+    let sql = " select ifnull(sum(e.amount),0) amount from expense e " +
+      " where e.category = ? " +
+      " and  e.date >= ? and e.date <= ? " +
+      " and e.incoming = 'false' ";
+
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [categoryId, initialDate, finalDate])
+        .then(response => {
+          let data = response.rows.item(0);
+          if (data.amount) {
+            amount = data.amount;
+          }
+          resolve(amount);
+        })
+        .catch(e => {
+          reject(e)
+        });
+    });
+
+  }
+
   getExpensesGroupByCategory(): Promise<any> {
 
     let data = [];

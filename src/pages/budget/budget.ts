@@ -80,6 +80,7 @@ export class Budget {
 
     modal.onDidDismiss(category => {
       this.category = category;
+      this.budget.category = this.category.id.toString();
     });
   }
 
