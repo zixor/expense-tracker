@@ -33,6 +33,7 @@ import { ModalCategory } from '../pages/modal-category/modal-category';
 import { ListBudget } from '../pages/list-budget/list-budget';
 import { Budget } from '../pages/budget/budget';
 import { Calculator } from '../pages/calculator/calculator';
+import { Datefilter } from '../pages/datefilter/datefilter';
 
 
 //Imports pages to Use
@@ -75,7 +76,8 @@ export const firebaseConfig = {
     ModalIcons,
     ModalCategory,
     ProgressBarComponent,
-    Calculator
+    Calculator,
+    Datefilter
   ],
   entryComponents: [
     MyApp,
@@ -91,7 +93,8 @@ export const firebaseConfig = {
     ModalColors,
     ModalIcons,
     ModalCategory,
-    Calculator
+    Calculator,
+    Datefilter
   ],
   providers: [
     ExpenseSqliteService,

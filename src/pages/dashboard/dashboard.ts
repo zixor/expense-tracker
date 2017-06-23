@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { Datefilter } from '../datefilter/datefilter';
 import { Chart } from 'chart.js';
 
 
@@ -25,8 +26,12 @@ export class Dashboard {
   private backgroundColor = [];
   private colors = {};
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
+  private initialDate:string;
+  private finalDate:string;
+
+  constructor(private navCtrl: NavController,
+    private modalCtl: ModalController,
+    private navParams: NavParams,
     private expenseService: ExpenseSqliteService,
     private utilitiesService: UtilitiesService) {
     this.getColors();
@@ -44,9 +49,9 @@ export class Dashboard {
       if (response) {
         response.forEach(report => {
 
-          this.labels.push(report.category);         
+          this.labels.push(report.category);
           this.data.push(report.amount);
-         
+
           this.borderColor.push(this.colors[report.color]);
           this.backgroundColor.push(this.colors[report.color]);
 
@@ -141,6 +146,18 @@ export class Dashboard {
 
   showItem() {
     console.log("show in cloud");
+  }
+
+  doFilter() {
+
+    const modal = this.modalCtl.create(Datefilter);
+    modal.present();
+
+    modal.onDidDismiss(filter => {
+      this.initialDate = filter.initialDate;
+      this.finalDate = filter.finalDate;
+    });
+
   }
 
 }

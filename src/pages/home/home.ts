@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { Detail } from '../detail/detail';
 import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { CategorySqliteService } from '../../providers/category.service.sqlite';
 import { Login } from '../login/login';
+import { Datefilter } from '../datefilter/datefilter';
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 
 @Component({
@@ -18,8 +19,12 @@ export class HomePage {
   private incomes: number = 0;
   private amountExpenses: number = 0;
 
+  private initialDate: string;
+  private finalDate: string;
+
 
   constructor(private navCtrl: NavController,
+    private modalCtl: ModalController,
     private expenseService: ExpenseSqliteService,
     private categoryService: CategorySqliteService,
     private alertCtrl: AlertController
@@ -76,7 +81,7 @@ export class HomePage {
              this.navCtrl.push(Login);
        }else{
          this.doRefresh(0);
-     }*/    
+     }*/
     this.initializeForm();
   }
 
@@ -135,6 +140,18 @@ export class HomePage {
       ]
     });
     confirm.present();
+  }
+
+  doFilter() {
+    
+    const modal = this.modalCtl.create(Datefilter);
+    modal.present();
+
+    modal.onDidDismiss(filter => {
+      this.initialDate = filter.initialDate;
+      this.finalDate = filter.finalDate;
+    });
+
   }
 
 

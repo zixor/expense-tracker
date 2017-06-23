@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { Budget } from '../budget/budget';
 import { BudgetSqliteService } from '../../providers/budget.service.sqlite';
 import { CategorySqliteService } from '../../providers/category.service.sqlite';
 import { ExpenseSqliteService } from '../../providers/expense.service.sqlite';
 import { BudgetModel } from '../../models/budget.model';
+import { Datefilter } from '../datefilter/datefilter';
 
 @Component({
   selector: 'page-list-budget',
@@ -13,11 +14,14 @@ import { BudgetModel } from '../../models/budget.model';
 export class ListBudget {
 
   private budgets: any[] = [];
+  private initialDate:string;
+  private finalDate:string;
 
   constructor(private navCtrl: NavController,
     private budgetService: BudgetSqliteService,
     private categoryService: CategorySqliteService,
     private expenseService: ExpenseSqliteService,
+    private modalCtl: ModalController,
     private alertCtrl: AlertController
   ) {
 
@@ -112,5 +116,20 @@ export class ListBudget {
     confirm.present();
   }
 
+  onClickBudget(budget) {
+    this.navCtrl.push(Budget, {"budget": budget});
+  }
+
+doFilter() {
+    
+    const modal = this.modalCtl.create(Datefilter);
+    modal.present();
+
+    modal.onDidDismiss(filter => {
+      this.initialDate = filter.initialDate;
+      this.finalDate = filter.finalDate;
+    });
+
+  }
 
 }

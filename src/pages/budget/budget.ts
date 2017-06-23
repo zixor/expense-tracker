@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, ModalController, AlertController, NavParams } from 'ionic-angular';
 import { Detail } from '../detail/detail';
 import { BudgetSqliteService } from '../../providers/budget.service.sqlite';
 import { CategorySqliteService } from '../../providers/category.service.sqlite';
@@ -18,38 +18,56 @@ import * as moment from 'moment';
 })
 export class Budget {
 
-  private budget: BudgetModel;
+  private budget: any;
   private category: CategoryModel;
 
   constructor(private navCtrl: NavController,
     private budgetService: BudgetSqliteService,
     private categoryService: CategorySqliteService,
     private modalCtl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private navParams: NavParams
   ) {
 
-    var date = new Date();
-    let firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    let lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
-    
-    this.budget = {
-      initialDate: moment(firstDayCurrentMonth.toString()).format("YYYY-MM-DD"),
-      finalDate: moment(new Date(lastDayCurrentMonth).toString()).format("YYYY-MM-DD"),
-      amount: 0,
-      category: ""
+    const budget = this.navParams.get('budget');
+
+    if (budget) {
+
+      console.log(budget);
+      this.budget = {
+        id: budget.id,
+        initialDate: budget.initialDate,
+        finalDate: budget.finalDate,
+        amount: budget.amount,
+        category: budget.category.id
+      }
+      this.category = budget.category;
+
+    } else {
+
+      var date = new Date();
+      let firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      let lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+
+      this.budget = {
+        initialDate: moment(firstDayCurrentMonth.toString()).format("YYYY-MM-DD"),
+        finalDate: moment(new Date(lastDayCurrentMonth).toString()).format("YYYY-MM-DD"),
+        amount: 0,
+        category: ""
+      }
+
+      this.category = {
+        name: "",
+        description: "",
+        icon: "help",
+        color: "light"
+      };
     }
 
-    this.category = {
-      name: "",
-      description: "",
-      icon: "help",
-      color: "light"
-    };
   }
 
 
   ionViewWillEnter() {
-
 
   }
 
@@ -84,7 +102,7 @@ export class Budget {
     });
   }
 
-  onTrash(budget: BudgetModel) {
+  onTrash() {
     let confirm = this.alertCtrl.create({
       title: 'Delete',
       message: `Are you sure you want to delete this budget ?`,
@@ -97,8 +115,8 @@ export class Budget {
         {
           text: 'Confirm',
           handler: () => {
-            this.budgetService.delete(budget);
-
+            this.budgetService.delete(this.budget);
+            this.navCtrl.pop();
           }
         }
       ]

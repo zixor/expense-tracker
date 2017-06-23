@@ -11,6 +11,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Dashboard</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+          <ion-icon name="search" (click)="doFilter();"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -18,25 +23,25 @@
 
 <ion-content padding>
 
- <ion-card>
-      <ion-card-header>
-        Expenses Bar Chart
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #barCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
- 
-    <ion-card>
-      <ion-card-header>
-        Expenses By Category
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #doughnutCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
- 
-    <!--ion-card>
+  <ion-card>
+    <ion-card-header>
+      Bar - Expenses By Category
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Percentage - Expenses By Category
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #doughnutCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <!--ion-card>
       <ion-card-header>
         Line Chart
       </ion-card-header>

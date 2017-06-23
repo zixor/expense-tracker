@@ -29,7 +29,7 @@ export class BudgetSqliteService {
 
   }
 
-  delete(budget: BudgetModel) {
+  delete(budget:any) {
 
     let sql = 'DELETE FROM budget WHERE id=?';
     this.sqlObject.executeSql(sql, [budget.id]);
