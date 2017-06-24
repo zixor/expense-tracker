@@ -1,3 +1,4 @@
+
 //Utilities
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -43,8 +44,6 @@ import { ListSavings } from '../pages/list-savings/list-savings';
 import { Savings } from '../pages/savings/savings';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
-
-
 
 
 export const firebaseConfig = {

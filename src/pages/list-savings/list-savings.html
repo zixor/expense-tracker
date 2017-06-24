@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="header">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center;">
+      Savings
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="doFilter();">
+          <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event);" class="refresher">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let saving of savings">
+
+    <ion-item (click)="onClickSaving(saving);">
+      <button item-start ion-fab color="{{saving.category.color}}" item-left style="box-shadow:none;">
+          <ion-icon name="{{saving.category.icon}}"></ion-icon>
+      </button>
+      <h2> {{saving.description}} </h2>
+      <p> {{saving.goalDate | date}}</p>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <p>Target</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ saving.amount | currency : 'USD': true }}</p>
+      </ion-col>
+    </ion-row>  
+    <ion-row>
+      <ion-col>
+        <progress-bar [progress]="saving.percentage"></progress-bar>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <br>
+  <ion-fab right bottom>
+    <button ion-fab color="add-item" (click)="onAddClick()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
