@@ -1,3 +1,4 @@
+//Utilities
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -12,15 +13,19 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { DatePickerModule } from 'datepicker-ionic2';
 import { SQLite } from '@ionic-native/sqlite';
 
-import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
-import { CategorySqliteService } from '../providers/category.service.sqlite';
-import { BudgetSqliteService } from '../providers/budget.service.sqlite';
-import { UtilitiesService } from '../providers/utilities.service';
-
+//Fibase Modules
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+//Services
+import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
+import { CategorySqliteService } from '../providers/category.service.sqlite';
+import { BudgetSqliteService } from '../providers/budget.service.sqlite';
+import { UtilitiesService } from '../providers/utilities.service';
+import { SavingSqliteService } from '../providers/savings.service.sqlite';
+
+//pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Detail } from '../pages/detail/detail';
@@ -34,9 +39,8 @@ import { ListBudget } from '../pages/list-budget/list-budget';
 import { Budget } from '../pages/budget/budget';
 import { Calculator } from '../pages/calculator/calculator';
 import { Datefilter } from '../pages/datefilter/datefilter';
-
-
-//Imports pages to Use
+import { ListSavings } from '../pages/list-savings/list-savings';
+import { Savings } from '../pages/savings/savings';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
 
@@ -77,7 +81,9 @@ export const firebaseConfig = {
     ModalCategory,
     ProgressBarComponent,
     Calculator,
-    Datefilter
+    Datefilter,
+    ListSavings,
+    Savings
   ],
   entryComponents: [
     MyApp,
@@ -94,12 +100,15 @@ export const firebaseConfig = {
     ModalIcons,
     ModalCategory,
     Calculator,
-    Datefilter
+    Datefilter,
+    ListSavings,
+    Savings
   ],
   providers: [
     ExpenseSqliteService,
     CategorySqliteService,
     BudgetSqliteService,
+    SavingSqliteService,
     UtilitiesService,
     StatusBar,
     SplashScreen,
