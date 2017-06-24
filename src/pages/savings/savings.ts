@@ -22,6 +22,32 @@ export class Savings {
     public navParams: NavParams,
     private modalCtl: ModalController,
     private savingService: SavingSqliteService) {
+
+
+    const saving = this.navParams.get('saving');
+    if (saving) {
+
+      this.saving = saving;
+
+    } else {
+
+      this.category = {
+        name: "",
+        description: "",
+        icon: "help",
+        color: "light"
+      };
+
+      this.saving = {
+        category: this.category,
+        description: "",
+        goalDate: "",
+        amount: 0,
+        deposit: "true",
+      }
+
+    }
+
   }
 
   ionViewDidLoad() {
@@ -61,18 +87,19 @@ export class Savings {
     } else {
       this.savingService.add(this.saving);
     }
+    this.navCtrl.pop();
   }
 
   onTrash() {
     this.savingService.delete(this.saving);
   }
 
-  deposit(){
+  deposit() {
 
   }
 
-  withdraw(){
-    
+  withdraw() {
+
   }
 
 }

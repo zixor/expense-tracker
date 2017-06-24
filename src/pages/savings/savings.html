@@ -35,13 +35,13 @@
 
     <ion-item>
       <ion-label color="primary" stacked>For what you save</ion-label>
-      <ion-input type="number" [(ngModel)]="saving.description" name="description"></ion-input>
+      <ion-input type="text" [(ngModel)]="saving.description" name="description"></ion-input>
     </ion-item>
 
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <span ion-datepicker (ionChanged)="setGolDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
+          <span ion-datepicker (ionChanged)="setGoalDate($event);" [value]="localDate" [min]="localDate" [full]="false" [calendar]="false"
             clear class="ScheduleDate">
               <span>{{ localDate | date }}  
                   <button ion-fab color="add-item" item-left style="box-shadow:none;">
@@ -52,7 +52,7 @@
         </ion-col>
         <ion-col>
           <ion-item item-center>
-            <ion-input type="text" [(ngModel)]="saving.goalDate" name="initialDate" placeholder="Choose Date Goal" required readonly></ion-input>
+            <ion-input type="text" [(ngModel)]="saving.goalDate" name="goalDate" placeholder="Choose Date Goal" required readonly></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -63,7 +63,7 @@
         <ion-col col-3>
           <button ion-fab color="add-item" item-left style="box-shadow:none;" (click)="openCalc();">
                     <ion-icon name="cash"></ion-icon>
-                  </button>
+          </button>
         </ion-col>
         <ion-col>
           <ion-item item-right>
@@ -83,7 +83,7 @@
         </ion-col>
         <ion-col>
           <button color="danger" item-left (click)="withdraw();">
-            <ion-icon name="log-in"></ion-icon>
+            <ion-icon name="log-out"></ion-icon>
             Withdraw
           </button>
         </ion-col>

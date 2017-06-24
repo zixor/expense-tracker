@@ -10,12 +10,14 @@ import { Settings } from '../pages/settings/settings';
 import { Login } from '../pages/login/login';
 import { ListBudget } from '../pages/list-budget/list-budget';
 import { ListCategory } from '../pages/list-category/list-category';
+import { ListSavings } from '../pages/list-savings/list-savings';
 import { UserProfile } from "./user-profile.model";
 
 //imports services
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 import { CategorySqliteService } from '../providers/category.service.sqlite';
 import { BudgetSqliteService } from '../providers/budget.service.sqlite';
+import { SavingSqliteService } from '../providers/savings.service.sqlite';
 
 
 @Component({
@@ -36,7 +38,8 @@ export class MyApp {
               public events: Events,
               private sqlService: ExpenseSqliteService,
               private categorySqlService: CategorySqliteService,
-              private budgetSqlService: BudgetSqliteService ) {
+              private budgetSqlService: BudgetSqliteService,
+              private savingeService: SavingSqliteService ) {
 
     this.initializeApp();
 
@@ -54,7 +57,7 @@ export class MyApp {
       { title: 'Category',      component: ListCategory,  icon:'cube' },
       { title: 'Transactions',  component: HomePage, icon:'pulse' },  
       { title: 'Budgets',       component: ListBudget, icon:'card' },  
-      { title: 'Savings',       component: HomePage, icon:'cash' },  
+      { title: 'Savings',       component: ListSavings, icon:'cash' },  
       { title: 'Settings',      component: Settings, icon: 'hammer'} ,  
       { title: 'Log Out',       component: Login, icon: 'exit'} 
       
@@ -77,6 +80,7 @@ export class MyApp {
       this.sqlService.openDataBase();
       this.categorySqlService.openDataBase();
       this.budgetSqlService.openDataBase();
+      this.savingeService.openDataBase();
     });
   }
 

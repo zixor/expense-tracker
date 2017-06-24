@@ -22,7 +22,6 @@ export class HomePage {
   private initialDate: string;
   private finalDate: string;
 
-
   constructor(private navCtrl: NavController,
     private modalCtl: ModalController,
     private expenseService: ExpenseSqliteService,
@@ -77,11 +76,11 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    /* if(!this.isUserAlreadyLoggedIn()) {
-             this.navCtrl.push(Login);
-       }else{
-         this.doRefresh(0);
-     }*/
+    /*if (!this.isUserAlreadyLoggedIn()) {
+      this.navCtrl.push(Login);
+    } else {
+      this.doRefresh(0);
+    }*/
     this.initializeForm();
   }
 
@@ -92,13 +91,6 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-    /* this.expenseService.expenses.subscribe(data=>{
-      this.expenses = data;
-      if(refresher != 0){
-        refresher.complete();
-      }
-    });  
-    */
     this.findAll().then(data => {
       if (data) {
         this.setExpenses();
@@ -143,7 +135,7 @@ export class HomePage {
   }
 
   doFilter() {
-    
+
     const modal = this.modalCtl.create(Datefilter);
     modal.present();
 
