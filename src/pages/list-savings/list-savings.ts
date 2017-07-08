@@ -5,6 +5,7 @@ import { Savings } from '../savings/savings';
 
 /**Imports services  */
 import { SavingSqliteService } from '../../providers/savings.service.sqlite';
+import { CategorySqliteService } from '../../providers/category.service.sqlite';
 
 @Component({
   selector: 'page-list-savings',
@@ -17,6 +18,7 @@ export class ListSavings {
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
     private savingService: SavingSqliteService,
+    private categoryService: CategorySqliteService,
     private alertCtrl: AlertController) {
 
     this.loadData();
@@ -24,9 +26,20 @@ export class ListSavings {
   }
 
   loadData() {
+    let arrSavings = [];
     this.savingService.getAll().then(data => {
-      this.savings = data;
+      if (data) {
+        data.forEach(data => {
+          let saving = data;
+          this.categoryService.getCategory(saving.category)
+            .then(category => {
+              saving.category = category;
+            });
+          arrSavings.push(saving);
+        });
+      }
     });
+    this.savings = arrSavings;
   }
 
   ionViewDidLoad() {
@@ -45,12 +58,25 @@ export class ListSavings {
 
 
   doRefresh(refresher) {
-    this.savingService.getAll()
-      .then(data => {
-        this.savings = data;
-        refresher.complete();
-      })
+
+    let arrSavings = [];
+    this.savingService.getAll().then(data => {
+      if (data) {
+        data.forEach(data => {
+          let saving = data;
+          this.categoryService.getCategory(saving.category)
+            .then(category => {
+              saving.category = category;
+            });
+          arrSavings.push(saving);
+        });
+      }
+      refresher.complete();
+    })
       .catch(e => console.log(e));
+
+    this.savings = arrSavings;
+
   }
 
   onTrash(saving: SavingModel) {
@@ -73,6 +99,18 @@ export class ListSavings {
       ]
     });
     confirm.present();
+  }
+
+  showDetails(){
+    console.log("showing list savings");
+  }
+
+  makeIncoming(){
+
+  }
+
+  makeWithDraw(){
+    
   }
 
 }
