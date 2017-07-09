@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { SavingModel } from '../models/Saving.model';
+import { DetailSavingModel } from '../models/detailsaving.model';
 
 
 @Injectable()
@@ -22,14 +23,20 @@ export class SavingSqliteService {
   }
 
   createTable() {
-    let sql = 'CREATE TABLE IF NOT EXISTS Saving(id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT, goalDate TEXT, description TEXT,amount REAL,deposit TEXT)';
+    
+    let sql = "CREATE TABLE IF NOT EXISTS SAVING(ID INTEGER PRIMARY KEY AUTOINCREMENT, CATEGORY TEXT, GOALDATE TEXT, DESCRIPTION TEXT)";                 
+    this.sqlObject.executeSql(sql, {})
+      .then(() => console.log('SQL Savings Initialized'))
+      .catch(e => console.log(e));
+
+    sql = "CREATE TABLE IF NOT EXISTS SAVINGDETAIL(ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, TYPE TEXT, AMOUNT REAL)";  
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Savings Initialized'))
       .catch(e => console.log(e));
 
   }
 
-  delete(Saving:SavingModel) {
+  delete(Saving: SavingModel) {
 
     let sql = 'DELETE FROM Saving WHERE id=?';
     this.sqlObject.executeSql(sql, [Saving.id]);
@@ -75,6 +82,50 @@ export class SavingSqliteService {
         })
         .catch(e => console.log(e));
     });
+  }
+
+  addDetail(detail: DetailSavingModel) {
+    return new Promise((resolve, reject) => {
+      let sql = 'INSERT INTO SAVINGDETAIL(DATE, TYPE, AMOUNT) VALUES (?,?,?)';
+      this.sqlObject.executeSql(sql, [detail.date, detail.type, detail.amount])
+        .then(response => {
+          resolve(response);
+        })
+        .catch(e => console.log(e));
+    });
+  }
+
+  deleteDetail(detail: DetailSavingModel) {
+    return new Promise((resolve, reject) => {
+      let sql = 'DELETE FROM SAVINGDETAIL WHERE ID = ?';
+      this.sqlObject.executeSql(sql, [detail.id])
+        .then(response => {
+          resolve(response);
+        })
+        .catch(e => console.log(e));
+    });
+  }
+
+  listDetails() : Promise<any> {
+
+    let details = [];
+
+    let sql = "SELECT * FROM SAVINGDETAIL ORDER BY date(date) DESC";
+
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [])
+        .then(response => {
+          for (let index = 0; index < response.rows.length; index++) {
+            let record = response.rows.item(index);
+            if (record) {
+              details.push(record);
+            }
+          }
+          resolve(details);
+        })
+        .catch(e => reject(e));
+    });
+
   }
 
   closeConnection() {

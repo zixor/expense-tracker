@@ -45,7 +45,7 @@ export class Budget {
 
     } else {
 
-      var date = new Date();
+      let date = new Date();
       let firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       let lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
 
