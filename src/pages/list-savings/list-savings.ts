@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { SavingModel } from "../../models/saving.model";
 import { DetailSavingModel } from "../../models/detailsaving.model";
 import { Savings } from '../savings/savings';
+import { ListDetailsSavings } from '../list-details-savings/list-details-savings';
 
 /**Imports services  */
 import { SavingSqliteService } from '../../providers/savings.service.sqlite';
@@ -105,7 +106,7 @@ export class ListSavings {
   }
 
   showDetails() {
-    console.log("showing list savings");
+      this.navCtrl.push(ListDetailsSavings);
   }
 
   makeIncoming() {

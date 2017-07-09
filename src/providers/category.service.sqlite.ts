@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { CategoryModel } from '../app/category.model';
-import * as moment from 'moment';
-
 
 @Injectable()
 export class CategorySqliteService {

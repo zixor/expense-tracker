@@ -44,6 +44,7 @@ import { ListSavings } from '../pages/list-savings/list-savings';
 import { Savings } from '../pages/savings/savings';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { Settings } from '../pages/settings/settings';
+import { ListDetailsSavings } from '../pages/list-details-savings/list-details-savings';
 
 
 export const firebaseConfig = {
@@ -82,7 +83,8 @@ export const firebaseConfig = {
     Calculator,
     Datefilter,
     ListSavings,
-    Savings
+    Savings,
+    ListDetailsSavings
   ],
   entryComponents: [
     MyApp,
@@ -101,7 +103,8 @@ export const firebaseConfig = {
     Calculator,
     Datefilter,
     ListSavings,
-    Savings
+    Savings,
+    ListDetailsSavings
   ],
   providers: [
     ExpenseSqliteService,

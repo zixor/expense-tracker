@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { SavingModel } from '../models/Saving.model';
 import { DetailSavingModel } from '../models/detailsaving.model';
-
+import * as moment from 'moment';
 
 @Injectable()
 export class SavingSqliteService {
@@ -23,13 +23,13 @@ export class SavingSqliteService {
   }
 
   createTable() {
-    
-    let sql = "CREATE TABLE IF NOT EXISTS SAVING(ID INTEGER PRIMARY KEY AUTOINCREMENT, CATEGORY TEXT, GOALDATE TEXT, DESCRIPTION TEXT)";                 
+
+    let sql = "CREATE TABLE IF NOT EXISTS SAVING(ID INTEGER PRIMARY KEY AUTOINCREMENT, CATEGORY TEXT, GOALDATE TEXT, DESCRIPTION TEXT)";
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Savings Initialized'))
       .catch(e => console.log(e));
 
-    sql = "CREATE TABLE IF NOT EXISTS SAVINGDETAIL(ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, TYPE TEXT, AMOUNT REAL)";  
+    sql = "CREATE TABLE IF NOT EXISTS SAVINGDETAIL(ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, TYPE TEXT, AMOUNT REAL)";
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Savings Initialized'))
       .catch(e => console.log(e));
@@ -106,11 +106,11 @@ export class SavingSqliteService {
     });
   }
 
-  listDetails() : Promise<any> {
+  getDetailList(): Promise<any> {
 
     let details = [];
 
-    let sql = "SELECT * FROM SAVINGDETAIL ORDER BY date(date) DESC";
+    let sql = "SELECT * FROM SAVINGDETAIL ORDER BY date(DATE) DESC";
 
     return new Promise((resolve, reject) => {
       this.sqlObject.executeSql(sql, [])
@@ -118,7 +118,8 @@ export class SavingSqliteService {
           for (let index = 0; index < response.rows.length; index++) {
             let record = response.rows.item(index);
             if (record) {
-              details.push(record);
+                record.DATE = moment(record.DATE).format('MMMM Do YYYY, h:mm:ss a');
+                details.push(record);
             }
           }
           resolve(details);

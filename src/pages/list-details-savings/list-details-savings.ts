@@ -1,24 +1,65 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
-/**
- * Generated class for the ListDetailsSavings page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+import { DetailSavingModel } from "../../models/detailsaving.model";
+import { SavingSqliteService } from '../../providers/savings.service.sqlite';
+
 @Component({
   selector: 'page-list-details-savings',
   templateUrl: 'list-details-savings.html',
 })
 export class ListDetailsSavings {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+private details: DetailSavingModel[] = [];
+
+  constructor(private navCtrl: NavController,
+    private navParams: NavParams,
+    private savingService: SavingSqliteService,
+    private alertCtrl: AlertController) {     
+    
+    this.loadData();
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListDetailsSavings');
+  loadData(){
+    this.savingService.getDetailList().then(data => {
+      this.details = data;
+    });
+  }
+
+  ionViewDidLoad(){
+    this.loadData();
+  }
+
+  doRefresh(refresher) {
+    this.savingService.getDetailList()
+      .then(data => {
+        this.details = data;
+        refresher.complete();
+      })
+      .catch(e => console.log(e));
+  }
+
+  onTrash(detail:DetailSavingModel){
+      let confirm = this.alertCtrl.create({
+      title: 'Delete',
+      message: `Are you sure you want to delete this transaction for this date and amount: "${detail.date}" "${detail.amount}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.savingService.deleteDetail(detail);
+            this.loadData();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 }
