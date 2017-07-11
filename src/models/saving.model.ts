@@ -6,6 +6,7 @@ export interface SavingModel {
     description: string,
     goalDate: string,
     amount: number,
-    deposit: string,
-    percentage?: string
+    cumulated?: string,
+    percentage?: string,
+    creationDate: string
 }

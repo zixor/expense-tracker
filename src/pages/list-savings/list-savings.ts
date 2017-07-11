@@ -34,12 +34,32 @@ export class ListSavings {
     this.savingService.getAll().then(data => {
       if (data) {
         data.forEach(data => {
+
           let saving = data;
+          let incomings = 0;
+          let withdraws = 0;
+
+          this.savingService.getDetailList(saving.id).then(data => {
+            if (data) {
+              data.forEach(detail => {
+                if (detail.type == "1") {
+                  incomings += detail.amount;
+                } else {
+                  withdraws += detail.amount;
+                }
+              });
+              saving.cumulated = incomings - withdraws;
+              saving.percentage = ((saving.cumulated * 100) / saving.amount).toString();
+            }
+          });
+
           this.categoryService.getCategory(saving.category)
             .then(category => {
               saving.category = category;
             });
+
           arrSavings.push(saving);
+
         });
       }
     });
@@ -67,12 +87,32 @@ export class ListSavings {
     this.savingService.getAll().then(data => {
       if (data) {
         data.forEach(data => {
+
           let saving = data;
+          let incomings = 0;
+          let withdraws = 0;
+
+          this.savingService.getDetailList(saving.id).then(data => {
+            if (data) {
+              data.forEach(detail => {
+                if (detail.type == "1") {
+                  incomings += detail.amount;
+                } else {
+                  withdraws += detail.amount;
+                }
+              });
+              saving.cumulated = incomings - withdraws;
+              saving.percentage = ((saving.cumulated * 100) / saving.amount).toString().substr(0, 5);
+            }
+          });
+
           this.categoryService.getCategory(saving.category)
             .then(category => {
               saving.category = category;
             });
+
           arrSavings.push(saving);
+
         });
       }
       refresher.complete();
@@ -105,11 +145,11 @@ export class ListSavings {
     confirm.present();
   }
 
-  showDetails() {
-      this.navCtrl.push(ListDetailsSavings);
+  showDetails(savingId) {
+    this.navCtrl.push(ListDetailsSavings, { savingId: savingId });
   }
 
-  makeIncoming() {
+  makeIncoming(savingId) {
     let prompt = this.alertCtrl.create({
       title: 'Incoming',
       message: "Plese enter the amount to be Consigned.",
@@ -127,14 +167,16 @@ export class ListSavings {
         },
         {
           text: 'Save',
-          handler: data => {           
+          handler: data => {
+
             let detail: DetailSavingModel = {
-              date:  moment(new Date().toString()).format(),
+              savingid: savingId,
+              date: moment(new Date().toString()).format(),
               type: "1",
               amount: data.amount
             };
             this.savingService.addDetail(detail).then(data => {
-                this.showAlert();
+              this.showAlert();
             });
           }
         }
@@ -143,7 +185,7 @@ export class ListSavings {
     prompt.present();
   }
 
-  makeWithDraw() {
+  makeWithDraw(savingId) {
     let prompt = this.alertCtrl.create({
       title: 'Withdraw',
       message: "Please enter the amount to Withdraw.",
@@ -163,12 +205,13 @@ export class ListSavings {
           text: 'Save',
           handler: data => {
             let detail: DetailSavingModel = {
-              date:  moment(new Date().toString()).format(),
+              savingid: savingId,
+              date: moment(new Date().toString()).format(),
               type: "2",
               amount: data.amount
             };
             this.savingService.addDetail(detail).then(data => {
-                this.showAlert();
+              this.showAlert();
             });
           }
         }

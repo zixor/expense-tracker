@@ -11,18 +11,22 @@ import { SavingSqliteService } from '../../providers/savings.service.sqlite';
 export class ListDetailsSavings {
 
 private details: DetailSavingModel[] = [];
+private savingId;
 
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
     private savingService: SavingSqliteService,
     private alertCtrl: AlertController) {     
-    
+
+    if(navParams.get("savingId")){
+        this.savingId = navParams.get("savingId");
+    }
     this.loadData();
 
   }
 
   loadData(){
-    this.savingService.getDetailList().then(data => {
+    this.savingService.getDetailList(this.savingId).then(data => {
       this.details = data;
     });
   }
@@ -32,7 +36,7 @@ private details: DetailSavingModel[] = [];
   }
 
   doRefresh(refresher) {
-    this.savingService.getDetailList()
+    this.savingService.getDetailList(this.savingId)
       .then(data => {
         this.details = data;
         refresher.complete();

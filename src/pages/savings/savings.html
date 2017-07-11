@@ -73,22 +73,5 @@
       </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="saving.id">
-      <ion-row>
-        <ion-col>
-          <button color="secondary" item-left (click)="deposit();">
-            <ion-icon name="log-in"></ion-icon>
-            Deposit
-          </button>
-        </ion-col>
-        <ion-col>
-          <button color="danger" item-left (click)="withdraw();">
-            <ion-icon name="log-out"></ion-icon>
-            Withdraw
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
   </form>
 </ion-content>

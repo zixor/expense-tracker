@@ -4,6 +4,7 @@ import { Calculator } from '../calculator/calculator';
 import { ModalCategory } from '../modal-category/modal-category';
 import { CategoryModel } from '../../models/category.model';
 import { SavingModel } from '../../models/saving.model';
+import { DetailSavingModel } from '../../models/detailsaving.model';
 import * as moment from 'moment';
 
 import { SavingSqliteService } from '../../providers/savings.service.sqlite';
@@ -43,7 +44,7 @@ export class Savings {
         description: "",
         goalDate: "",
         amount: 0,
-        deposit: "true",
+        creationDate: new Date().toString()
       }
 
     }
@@ -76,8 +77,10 @@ export class Savings {
     modal.present();
 
     modal.onDidDismiss(category => {
-      this.category = category;
-      this.saving.category = this.category;
+      if (category) {
+        this.category = category;
+        this.saving.category = this.category;
+      }
     });
   }
 
@@ -85,21 +88,13 @@ export class Savings {
     if (this.saving.id) {
       this.savingService.update(this.saving);
     } else {
-      this.savingService.add(this.saving);
+      this.savingService.add(this.saving).then();
     }
     this.navCtrl.pop();
   }
 
   onTrash() {
     this.savingService.delete(this.saving);
-  }
-
-  deposit() {
-
-  }
-
-  withdraw() {
-
   }
 
 }

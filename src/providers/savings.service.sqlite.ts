@@ -24,12 +24,12 @@ export class SavingSqliteService {
 
   createTable() {
 
-    let sql = "CREATE TABLE IF NOT EXISTS SAVING(ID INTEGER PRIMARY KEY AUTOINCREMENT, CATEGORY TEXT, GOALDATE TEXT, DESCRIPTION TEXT)";
+    let sql = "create table if not exists saving(id integer primary key autoincrement, creationdate text, category text, goaldate text, amount real, description text)";
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Savings Initialized'))
       .catch(e => console.log(e));
 
-    sql = "CREATE TABLE IF NOT EXISTS SAVINGDETAIL(ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT, TYPE TEXT, AMOUNT REAL)";
+    sql = "create table if not exists savingdetail(id integer primary key autoincrement, saving_id integer, date text, type text, amount real)";
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Savings Initialized'))
       .catch(e => console.log(e));
@@ -38,7 +38,7 @@ export class SavingSqliteService {
 
   delete(Saving: SavingModel) {
 
-    let sql = 'DELETE FROM Saving WHERE id=?';
+    let sql = 'delete from saving where id=?';
     this.sqlObject.executeSql(sql, [Saving.id]);
 
   }
@@ -47,7 +47,7 @@ export class SavingSqliteService {
 
     let Savings = [];
 
-    let sql = "select * from Saving";
+    let sql = "select * from saving  order by date(creationdate) desc";
 
     return new Promise((resolve, reject) => {
       this.sqlObject.executeSql(sql, [])
@@ -68,15 +68,15 @@ export class SavingSqliteService {
 
   update(Saving: SavingModel) {
 
-    let sql = 'UPDATE Saving SET category = ?, goalDate = ?, description = ?,  amount = ?, deposit = ? WHERE id=?';
-    this.sqlObject.executeSql(sql, [Saving.category.id, Saving.goalDate, Saving.description, Saving.amount, Saving.deposit, Saving.id]);
+    let sql = 'update saving set category = ?, goaldate = ?, description = ?,  amount = ? where id=?';
+    this.sqlObject.executeSql(sql, [Saving.category.id, Saving.goalDate, Saving.description, Saving.amount, Saving.id]);
 
   }
 
-  add(Saving: SavingModel) {
+  add(Saving: SavingModel): Promise<any> {
     return new Promise((resolve, reject) => {
-      let sql = 'insert into Saving ( category, goalDate, description,  amount, deposit ) values ( ?,?,?,?,? )';
-      this.sqlObject.executeSql(sql, [Saving.category.id, Saving.goalDate, Saving.description, Saving.amount, Saving.deposit])
+      let sql = 'insert into saving ( creationdate, category, goalDate, description,  amount ) values ( ?,?,?,?,? )';
+      this.sqlObject.executeSql(sql, [Saving.creationDate, Saving.category.id, Saving.goalDate, Saving.description, Saving.amount])
         .then(response => {
           resolve(response);
         })
@@ -84,10 +84,10 @@ export class SavingSqliteService {
     });
   }
 
-  addDetail(detail: DetailSavingModel) {
+  addDetail(detail: DetailSavingModel): Promise<any> {
     return new Promise((resolve, reject) => {
-      let sql = 'INSERT INTO SAVINGDETAIL(DATE, TYPE, AMOUNT) VALUES (?,?,?)';
-      this.sqlObject.executeSql(sql, [detail.date, detail.type, detail.amount])
+      let sql = 'insert into savingdetail(saving_id, date, type, amount) values (?,?,?,?)';
+      this.sqlObject.executeSql(sql, [detail.savingid,detail.date, detail.type, detail.amount])
         .then(response => {
           resolve(response);
         })
@@ -97,7 +97,7 @@ export class SavingSqliteService {
 
   deleteDetail(detail: DetailSavingModel) {
     return new Promise((resolve, reject) => {
-      let sql = 'DELETE FROM SAVINGDETAIL WHERE ID = ?';
+      let sql = 'delete from savingdetail where id = ?';
       this.sqlObject.executeSql(sql, [detail.id])
         .then(response => {
           resolve(response);
@@ -106,19 +106,19 @@ export class SavingSqliteService {
     });
   }
 
-  getDetailList(): Promise<any> {
+  getDetailList(savingId: number): Promise<any> {
 
     let details = [];
 
-    let sql = "SELECT * FROM SAVINGDETAIL ORDER BY date(DATE) DESC";
+    let sql = "select * from savingdetail where saving_id = ? order by date(date) desc";
 
     return new Promise((resolve, reject) => {
-      this.sqlObject.executeSql(sql, [])
+      this.sqlObject.executeSql(sql, [savingId])
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let record = response.rows.item(index);
             if (record) {
-                record.DATE = moment(record.DATE).format('MMMM Do YYYY, h:mm:ss a');
+                record.date = moment(record.date).format('MMMM Do YYYY, h:mm:ss a');
                 details.push(record);
             }
           }
