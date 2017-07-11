@@ -49,7 +49,7 @@ export class ListSavings {
                 }
               });
               saving.cumulated = incomings - withdraws;
-              saving.percentage = ((saving.cumulated * 100) / saving.amount).toString();
+              saving.percentage = ((saving.cumulated * 100) / saving.amount).toString().substr(0, 5);
             }
           });
 
