@@ -24,14 +24,14 @@
       <ion-row>
 
         <ion-col col-2>
-          <button item-start ion-fab color="{{saving.category.color}}" item-left style="box-shadow:none;">
+          <button item-start ion-fab color="{{saving.category.color}}"  (click)="onClickSaving(saving);" item-left style="box-shadow:none;">
               <ion-icon name="{{saving.category.icon}}"></ion-icon>
             </button>
         </ion-col>
 
         <ion-col>  
           <h2> {{saving.description}} </h2>
-          <p> {{saving.goalDate | date}}</p>
+          <p> {{saving.goaldate | date}}</p>
         </ion-col>
 
         <ion-col col-2>

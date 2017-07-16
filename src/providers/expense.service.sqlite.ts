@@ -36,13 +36,19 @@ export class ExpenseSqliteService {
 
   }
 
-  getAll(): Promise<any> {
+  getAll(initialDate: string, finalDate: string): Promise<any> {
 
     let expenses = [];
     let sql = 'SELECT * FROM expense';
+    let params = [];
+
+    if (initialDate != null && finalDate != null) {
+      sql += " where date between ? and ? ";
+      params = [initialDate, finalDate];
+    }
 
     return new Promise((resolve, reject) => {
-      this.sqlObject.executeSql(sql, [])
+      this.sqlObject.executeSql(sql, params)
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let expense = response.rows.item(index);
@@ -99,17 +105,24 @@ export class ExpenseSqliteService {
 
   }
 
-  getExpensesGroupByCategory(): Promise<any> {
+  getExpensesGroupByCategory(initialDate: string, finalDate: string): Promise<any> {
 
+    let params = [];
     let data = [];
     let sql = " SELECT sum(e.amount) amount, c.name category, c.icon icon, c.color color " +
       " FROM expense e, category c " +
       " where  e.category = c.id  " +
-      " and e.incoming = 'false' " +
-      " GROUP BY category "
+      " and e.incoming = 'false' ";
+
+    if (initialDate != null && finalDate != null) {
+      sql += " and date between ? and ? ";
+      params = [initialDate,finalDate];
+    }
+
+    sql += " GROUP BY category ";
 
     return new Promise((resolve, reject) => {
-      this.sqlObject.executeSql(sql, [])
+      this.sqlObject.executeSql(sql, params)
         .then(response => {
           for (let index = 0; index < response.rows.length; index++) {
             let record = response.rows.item(index);

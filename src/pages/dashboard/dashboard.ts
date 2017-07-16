@@ -19,9 +19,7 @@ export class Dashboard {
 
   barChart: any;
   doughnutChart: any;
-  //lineChart: any;
-  private labels = [];
-  private data = [];
+  //lineChart: any;  
   private borderColor = [];
   private backgroundColor = [];
   private colors = {};
@@ -42,21 +40,22 @@ export class Dashboard {
   }
 
 
-  initializeData() {
-
-    this.expenseService.getExpensesGroupByCategory().then(response => {
+  initializeData(initialDate,finalDate) {
+    let data = [];
+    let labels = [];  
+    this.expenseService.getExpensesGroupByCategory(initialDate,finalDate).then(response => {
 
       if (response) {
         response.forEach(report => {
 
-          this.labels.push(report.category);
-          this.data.push(report.amount);
+          labels.push(report.category);
+          data.push(report.amount);
 
           this.borderColor.push(this.colors[report.color]);
           this.backgroundColor.push(this.colors[report.color]);
 
         });
-        this.makeGraphics(this.labels, this.data, this.borderColor, this.backgroundColor);
+        this.makeGraphics(labels, data, this.borderColor, this.backgroundColor);
       }
 
     });
@@ -64,7 +63,7 @@ export class Dashboard {
 
   ionViewDidLoad() {
 
-    this.initializeData();
+    this.initializeData(null,null);
 
   }
 
@@ -154,8 +153,8 @@ export class Dashboard {
     modal.present();
 
     modal.onDidDismiss(filter => {
-      this.initialDate = filter.initialDate;
-      this.finalDate = filter.finalDate;
+      console.log(filter);
+       this.initializeData(filter.initialDate,filter.finalDate);
     });
 
   }

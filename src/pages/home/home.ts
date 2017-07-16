@@ -19,8 +19,8 @@ export class HomePage {
   private incomes: number = 0;
   private amountExpenses: number = 0;
 
-  private initialDate: string;
-  private finalDate: string;
+  //private initialDate: string;
+  //private finalDate: string;
 
   constructor(private navCtrl: NavController,
     private modalCtl: ModalController,
@@ -36,7 +36,7 @@ export class HomePage {
   initializeForm() {
     this.setExpenses();
     this.setIncomes();
-    this.findAll();
+    this.findAll(null,null);
   }
 
   setExpenses() {
@@ -57,10 +57,10 @@ export class HomePage {
     this.balance = this.incomes - this.amountExpenses;
   }
 
-  findAll() {
+  findAll(initialDate,finalDate) {
     let arrExpenses = [];
     return new Promise((resolve, reject) => {
-      this.expenseService.getAll().then(data => {
+      this.expenseService.getAll(initialDate,finalDate).then(data => {
         if (data) {
           data.forEach(expense => {
             this.categoryService.getCategory(expense.category).then(category => {
@@ -91,7 +91,7 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-    this.findAll().then(data => {
+    this.findAll(null,null).then(data => {
       if (data) {
         this.setExpenses();
         this.setIncomes();
@@ -126,7 +126,7 @@ export class HomePage {
           text: 'Confirm',
           handler: () => {
             this.expenseService.delete(expense);
-            this.findAll();
+            this.findAll(null,null);
           }
         }
       ]
@@ -140,8 +140,8 @@ export class HomePage {
     modal.present();
 
     modal.onDidDismiss(filter => {
-      this.initialDate = filter.initialDate;
-      this.finalDate = filter.finalDate;
+      console.log(filter);
+       this.findAll(filter.initialDate,filter.finalDate);
     });
 
   }

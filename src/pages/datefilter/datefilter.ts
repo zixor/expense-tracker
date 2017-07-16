@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-datefilter',
@@ -23,7 +23,19 @@ export class Datefilter {
   }
 
   closeModal(){
-    this.viewCtl.dismiss();
+    this.viewCtl.dismiss(this.filter);
+  }
+
+  setInitialDate(date){
+    this.filter.initialDate = moment(date).format("YYYY-MM-DD");
+  }
+
+  setFinalDate(date){
+    this.filter.finalDate = moment(date).format("YYYY-MM-DD");
+  }
+
+  onApply(){
+    this.closeModal();
   }
 
 }

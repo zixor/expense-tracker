@@ -69,14 +69,14 @@ export class SavingSqliteService {
   update(Saving: SavingModel) {
 
     let sql = 'update saving set category = ?, goaldate = ?, description = ?,  amount = ? where id=?';
-    this.sqlObject.executeSql(sql, [Saving.category.id, Saving.goalDate, Saving.description, Saving.amount, Saving.id]);
+    this.sqlObject.executeSql(sql, [Saving.category.id, Saving.goaldate, Saving.description, Saving.amount, Saving.id]);
 
   }
 
   add(Saving: SavingModel): Promise<any> {
     return new Promise((resolve, reject) => {
       let sql = 'insert into saving ( creationdate, category, goalDate, description,  amount ) values ( ?,?,?,?,? )';
-      this.sqlObject.executeSql(sql, [Saving.creationDate, Saving.category.id, Saving.goalDate, Saving.description, Saving.amount])
+      this.sqlObject.executeSql(sql, [Saving.creationDate, Saving.category.id, Saving.goaldate, Saving.description, Saving.amount])
         .then(response => {
           resolve(response);
         })

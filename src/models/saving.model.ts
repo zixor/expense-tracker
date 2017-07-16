@@ -4,7 +4,7 @@ export interface SavingModel {
     id?: number,
     category: CategoryModel,
     description: string,
-    goalDate: string,
+    goaldate: string,
     amount: number,
     cumulated?: string,
     percentage?: string,

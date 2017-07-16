@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { Calculator } from '../calculator/calculator';
 import { ModalCategory } from '../modal-category/modal-category';
 import { CategoryModel } from '../../models/category.model';
@@ -22,13 +22,15 @@ export class Savings {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtl: ModalController,
+    private alertCtrl: AlertController,
     private savingService: SavingSqliteService) {
 
 
-    const saving = this.navParams.get('saving');
+    const saving: SavingModel = this.navParams.get('saving');
     if (saving) {
 
       this.saving = saving;
+      this.category = saving.category;
 
     } else {
 
@@ -42,7 +44,7 @@ export class Savings {
       this.saving = {
         category: this.category,
         description: "",
-        goalDate: "",
+        goaldate: "",
         amount: 0,
         creationDate: new Date().toString()
       }
@@ -57,7 +59,7 @@ export class Savings {
 
 
   setGoalDate(date) {
-    this.saving.goalDate = moment(date).format("YYYY-MM-DD");
+    this.saving.goaldate = moment(date).format("YYYY-MM-DD");
   }
 
   openCalc() {
@@ -94,7 +96,25 @@ export class Savings {
   }
 
   onTrash() {
-    this.savingService.delete(this.saving);
+    let confirm = this.alertCtrl.create({
+      title: 'Delete',
+      message: `Are you sure you want to delete this saving: "${this.saving.description}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.savingService.delete(this.saving);
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 }
